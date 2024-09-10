@@ -1,1 +1,1 @@
-<img src="Canvascript.png" alt="Canvascript logo">
+<img src="CanvaScript.png" alt="Canvascript logo">
