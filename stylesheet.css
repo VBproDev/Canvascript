@@ -1,0 +1,27 @@
+body {
+    background-color: #feffff;
+    color: #222222;
+}
+
+.canvas {
+    border: 0.05rem solid #aaaaaa;
+    touch-action: none;
+}
+
+.stroke-width {
+    width: 7%;
+    height: 1.75rem;
+}
+
+.copy-btn {
+    width: 2rem;
+    height: 2rem;
+}
+
+.form-control {
+    flex: 1 !important;
+}
+
+.copy {
+    cursor: copy;
+}
