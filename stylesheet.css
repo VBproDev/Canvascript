@@ -22,6 +22,7 @@ body {
     flex: 1 !important;
 }
 
-.copy {
+.copy,
+.discord {
     cursor: copy;
 }
