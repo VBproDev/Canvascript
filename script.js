@@ -112,7 +112,7 @@ function drawLines() {
 function generateCode() {
     let i = 0;
     space.innerHTML = '';
-    space.innerHTML += `<div>const canvas = document.querySelector(\'canvas\');</div><div>const ctx = canvas.getContext(\'2d\');</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '#000000';'</div>`
+    space.innerHTML += `<div>const canvas = document.querySelector(\'canvas\');</div><div>const ctx = canvas.getContext(\'2d\');</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '#000000';</div><div>ctx.lineWidth = 1;</div>`
 
     while (i < canvasArray.length) {
         let CA1 = canvasArray[i];
