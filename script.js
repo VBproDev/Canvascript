@@ -10,6 +10,14 @@ const design = document.querySelector('.design');
 const userDesign = document.querySelector('.user-design');
 const save = document.querySelector('.save');
 const localCanvas = localStorage.getItem('canvasArray');
+
+const previewLineHandler = (e) => {
+    clear();
+    drawGrid();
+    drawLines();
+    previewLine(e);
+};
+
 let stroke = '';
 let localStroke;
 let color = '#000000';
@@ -20,6 +28,18 @@ let x;
 let y;
 let num = -1;
 let canvasArray = [];
+
+function previewLine(event) {
+    const atX = event.offsetX;
+    const atY = event.offsetY;
+
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = stroke || 1;
+    ctx.moveTo(x, y);
+    ctx.lineTo(atX, atY);
+    ctx.stroke();
+}
 
 function int(n) {
     return typeof n === 'number';
@@ -181,9 +201,10 @@ window.addEventListener('resize', (e) => {
 
 window.addEventListener('beforeunload', (e) => {
     if (localStorage.getItem('canvasArray') !== JSON.stringify(canvasArray)) {
-        e.preventDefault(); 
+        e.preventDefault();
     }
 });
+
 canvas.addEventListener('contextmenu', (e) => {
     e.preventDefault();
 });
@@ -211,12 +232,20 @@ canvas.addEventListener('pointerdown', (e) => {
     canvasArray[num] = x;
     num++;
     canvasArray[num] = y;
+
+    canvas.addEventListener('mousemove', previewLineHandler);
 });
 
 canvas.addEventListener('pointerup', (e) => {
     let a = e.offsetX;
     let b = e.offsetY;
 
+    clear();
+    drawGrid();
+    drawLines();
+
+    canvas.removeEventListener('mousemove', previewLineHandler);
+    
     num++;
     canvasArray[num] = a;
     num++;
