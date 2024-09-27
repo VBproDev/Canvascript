@@ -28,6 +28,7 @@ let x;
 let y;
 let num = -1;
 let canvasArray = [];
+let warnedUser = false;
 
 function previewLine(event) {
     const atX = event.offsetX;
@@ -200,8 +201,9 @@ window.addEventListener('resize', (e) => {
 });
 
 window.addEventListener('beforeunload', (e) => {
-    if (localStorage.getItem('canvasArray') !== JSON.stringify(canvasArray)) {
+    if (localStorage.getItem('canvasArray') !== JSON.stringify(canvasArray) && !warnedUser) {
         e.preventDefault();
+        warnedUser = true;
     }
 });
 
