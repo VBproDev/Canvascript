@@ -18,7 +18,7 @@ const previewLineHandler = (e) => {
     previewLine(e);
 };
 
-let stroke = '';
+let stroke = 1;
 let localStroke;
 let color = '#000000';
 let localColor;
@@ -203,7 +203,7 @@ window.addEventListener('resize', (e) => {
 window.addEventListener('beforeunload', (e) => {
     if (localStorage.getItem('canvasArray') !== JSON.stringify(canvasArray) && !warnedUser) {
         e.preventDefault();
-        warnedUser = true;
+        warnedUser = true; 
     }
 });
 
@@ -213,7 +213,7 @@ canvas.addEventListener('contextmenu', (e) => {
 
 canvas.addEventListener('pointerdown', (e) => {
     localColor = document.querySelector('.color').value;
-    localStroke = document.querySelector('.stroke-width').value;
+    localStroke = document.querySelector('.stroke-width').value || 1;
 
     if (localColor !== color) {
         color = localColor;
@@ -235,7 +235,7 @@ canvas.addEventListener('pointerdown', (e) => {
     num++;
     canvasArray[num] = y;
 
-    canvas.addEventListener('mousemove', previewLineHandler);
+    canvas.addEventListener('pointermove', previewLineHandler);
 });
 
 canvas.addEventListener('pointerup', (e) => {
@@ -246,7 +246,7 @@ canvas.addEventListener('pointerup', (e) => {
     drawGrid();
     drawLines();
 
-    canvas.removeEventListener('mousemove', previewLineHandler);
+    canvas.removeEventListener('pointermove', previewLineHandler);
     
     num++;
     canvasArray[num] = a;
