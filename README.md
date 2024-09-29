@@ -5,4 +5,4 @@ If anyone wants to add something to Canvascript, then they should fork the linte
 
 <p>We have a Discord server btw <a href="https://discord.gg/ZXMEkzfZXx">https://discord.gg/ZXMEkzfZXx</a></p>
 <h1>Edge case</h1>
-<p>If you set the line width to 0, unexpected things may happen. I am currently assesing this problem.</p>
+<p>If you set the line width to 0, unexpected things may happen, for more details and list of the features that break you should refer to issue #8. I am currently assesing this problem.</p>
