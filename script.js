@@ -214,7 +214,7 @@ canvas.addEventListener('contextmenu', (e) => {
 
 canvas.addEventListener('pointerdown', (e) => {
     localStroke = document.querySelector('.stroke-width').value || 1;
-    if (localStroke === 0) {
+    if (localStroke !== '0') {
         localColor = document.querySelector('.color').value;
 
         if (localColor !== color) {
@@ -246,7 +246,7 @@ canvas.addEventListener('pointerdown', (e) => {
 });
 
 canvas.addEventListener('pointerup', (e) => {
-    if (stroke === 0) {
+    if (stroke !== '0') {
         let a = e.offsetX;
         let b = e.offsetY;
 
