@@ -89,7 +89,7 @@ function drawLines() {
             if (!(int(CA1) || int(CA2))) {
                 ctx.stroke();
                 ctx.beginPath();
-                ctx.strokeStyle = CA1;
+                ctx.strokeStyle = CA1 || "#000";
                 ctx.lineWidth = CA2;
                 i += 2;
             } else {
@@ -101,7 +101,7 @@ function drawLines() {
                 } else {
                     ctx.stroke();
                     ctx.beginPath();
-                    ctx.strokeStyle = CA1;
+                    ctx.strokeStyle = CA1 || "#000";
                     i++;
                 };
             };
