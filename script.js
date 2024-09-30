@@ -29,6 +29,7 @@ let y;
 let num = -1;
 let canvasArray = [];
 let warnedUser = false;
+let newDesign;
 
 function previewLine(event) {
     const atX = event.offsetX;
@@ -49,14 +50,14 @@ function int(n) {
 function copyText() {
     design.select();
     design.setSelectionRange(0, 99999999);
-    navigator.clipboard.writeText(`${design.value}`);
+    navigator.clipboard.writeText(JSON.stringify(canvasArray));
 }
 
 function setArray() {
     if (canvasArray.length === 0) {
         design.value = '[ ]'
     } else {
-        design.value = `[${canvasArray}]`;
+        design.value = JSON.stringify(canvasArray);
     };
 }
 
@@ -89,8 +90,8 @@ function drawLines() {
             if (!(int(CA1) || int(CA2))) {
                 ctx.stroke();
                 ctx.beginPath();
-                ctx.strokeStyle = CA1 || "#000";
-                ctx.lineWidth = CA2;
+                ctx.strokeStyle = CA1;
+                ctx.lineWidth = CA1 || "#000";
                 i += 2;
             } else {
                 if (Math.sign(CA1)) {
@@ -203,7 +204,7 @@ window.addEventListener('resize', (e) => {
 window.addEventListener('beforeunload', (e) => {
     if (localStorage.getItem('canvasArray') !== JSON.stringify(canvasArray) && !warnedUser) {
         e.preventDefault();
-        warnedUser = true; 
+        warnedUser = true;
     }
 });
 
