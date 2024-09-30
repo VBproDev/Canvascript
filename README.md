@@ -15,5 +15,8 @@
 If anyone wants to add something to Canvascript, then they should fork the linted files, then I will minify that file and accept the changes. This is not a dead repo and I will continue to make changes.
 
 <p>We have a Discord server btw <a href="https://discord.gg/ZXMEkzfZXx">https://discord.gg/ZXMEkzfZXx</a></p>
-<h1>Edge case</h1>
-<p>If you set the line width to 0, unexpected things may happen, for more details and list of the features that break you should refer to issue #8. I am currently assesing this problem.</p>
+<h1>Edge cases</h1>
+<h2>Active issues</h2>
+<i>None currently</i>
+<h2>Archived</h2>
+<p><s>If you set the line width to 0, unexpected things may happen, for more details and list of the features that break you should refer to issue #8. I am currently assesing this problem.</s> Resolved <a href="https://github.com/VBproDev/Canvascript/pull/9" target="_blank">here</a></p>
