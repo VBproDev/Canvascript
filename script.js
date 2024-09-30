@@ -36,7 +36,6 @@ function previewLine(event) {
 
     ctx.beginPath();
     ctx.strokeStyle = color;
-    // Fix: Ensure lineWidth is not set to 1 by default, instead use stroke
     ctx.lineWidth = stroke > 0 ? stroke : 0;
     ctx.moveTo(x, y);
     ctx.lineTo(atX, atY);
@@ -307,7 +306,3 @@ userDesign.addEventListener('click', () => {
 save.addEventListener('click', () => {
     localStorage.setItem('canvasArray', JSON.stringify(canvasArray));
 });
-//Fixed the line width issue (now lines with 0 width won't be visible).
-//Fixed the color reset issue (ensures the color does not reset to black).
-//Handled canvas updates properly when resizing or interacting.
-
