@@ -212,54 +212,62 @@ canvas.addEventListener('contextmenu', (e) => {
 });
 
 canvas.addEventListener('pointerdown', (e) => {
-    localColor = document.querySelector('.color').value;
     localStroke = document.querySelector('.stroke-width').value || 1;
+    if (localStroke === 0) {
+        localColor = document.querySelector('.color').value;
 
-    if (localColor !== color) {
-        color = localColor;
+        if (localColor !== color) {
+            color = localColor;
+            num++;
+            canvasArray[num] = color;
+        }
+
+        if (localStroke !== stroke) {
+            stroke = localStroke;
+            num++;
+            canvasArray[num] = stroke;
+        }
+
+        x = e.offsetX;
+        y = e.offsetY;
+
         num++;
-        canvasArray[num] = color;
+        canvasArray[num] = x;
+        num++;
+        canvasArray[num] = y;
+
+        canvas.addEventListener('pointermove', previewLineHandler);
     }
 
-    if (localStroke !== stroke) {
+    else {
         stroke = localStroke;
-        num++;
-        canvasArray[num] = stroke;
     }
-
-    x = e.offsetX;
-    y = e.offsetY;
-
-    num++;
-    canvasArray[num] = x;
-    num++;
-    canvasArray[num] = y;
-
-    canvas.addEventListener('pointermove', previewLineHandler);
 });
 
 canvas.addEventListener('pointerup', (e) => {
-    let a = e.offsetX;
-    let b = e.offsetY;
+    if (stroke === 0) {
+        let a = e.offsetX;
+        let b = e.offsetY;
 
-    clear();
-    drawGrid();
-    drawLines();
+        clear();
+        drawGrid();
+        drawLines();
 
-    canvas.removeEventListener('pointermove', previewLineHandler);
-    
-    num++;
-    canvasArray[num] = a;
-    num++;
-    canvasArray[num] = b;
+        canvas.removeEventListener('pointermove', previewLineHandler);
 
-    ctx.beginPath();
-    ctx.strokeStyle = color;
-    ctx.lineWidth = stroke;
-    ctx.moveTo(x, y);
-    ctx.lineTo(a, b);
-    ctx.stroke();
-    setArray();
+        num++;
+        canvasArray[num] = a;
+        num++;
+        canvasArray[num] = b;
+
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = stroke;
+        ctx.moveTo(x, y);
+        ctx.lineTo(a, b);
+        ctx.stroke();
+        setArray();
+    }
 });
 
 redo.addEventListener('click', () => {
