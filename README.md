@@ -9,7 +9,7 @@
     <meta property="og:image" content="https://vbprodev.github.io/Canvascript/CanvaScript.png">
     <meta property="og:url" content="https://vbprodev.github.io/Canvascript/">
     <meta property="og:type" content="website">
-<img src="CanvaScript.png" alt="Canvascript logo">
+<img src="assets/CanvaScript.png" alt="Canvascript logo">
 <h1>About</h1>
 <p><b>Draw on the canvas, then get the JS script to render it on the HTML canvas. A tool for graphic designers and developers.</b></p>
 If anyone wants to add something to Canvascript, then they should fork the linted files, then I will minify that file and accept the changes. This is not a dead repo and I will continue to make changes.
