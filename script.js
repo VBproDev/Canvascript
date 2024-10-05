@@ -19,9 +19,7 @@ const previewLineHandler = (e) => {
 };
 
 let stroke = 1;
-let localStroke;
 let color = '#000000';
-let localColor;
 let canvasWidth;
 let canvasHeight;
 let x;
@@ -213,9 +211,9 @@ canvas.addEventListener('contextmenu', (e) => {
 });
 
 canvas.addEventListener('pointerdown', (e) => {
-    localStroke = document.querySelector('.stroke-width').value || 1;
+    const localStroke = document.querySelector('.stroke-width').value || 1;
     if (localStroke !== '0') {
-        localColor = document.querySelector('.color').value;
+        const localColor = document.querySelector('.color').value;
 
         if (localColor !== color) {
             color = localColor;
