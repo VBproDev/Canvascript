@@ -42,7 +42,7 @@ function previewLine(event) {
 }
 
 function int(n) {
-    return typeof n === 'number';
+    return !Number.isNaN(+n);
 }
 
 function copyText() {
@@ -75,7 +75,7 @@ function drawLines() {
     ctx.beginPath()
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = 1;
-
+    console.log(JSON.stringify(canvasArray));
     while (i < canvasArray.length) {
         let CA1 = canvasArray[i];
         let CA2 = canvasArray[i + 1];
@@ -92,9 +92,10 @@ function drawLines() {
                 ctx.beginPath();
                 ctx.strokeStyle = CA1;
                 ctx.lineWidth = CA2;
+                console.log(i, CA1, CA2);
                 i += 2;
             } else {
-                if (Math.sign(CA1)) {
+                if (int(CA1) && Math.sign(CA1)) {
                     // line width
                     ctx.stroke();
                     ctx.beginPath();
@@ -237,6 +238,7 @@ canvas.addEventListener('pointerdown', (e) => {
         canvasArray[num] = x;
         num++;
         canvasArray[num] = y;
+        console.log(JSON.stringify(canvasArray));
         canvas.addEventListener('pointermove', previewLineHandler);
     }
 
@@ -289,6 +291,8 @@ reset.addEventListener('click', () => {
     canvasArray = [];
     num = -1;
     localStorage.removeItem('canvasArray');
+    stroke = 1;
+    color = '#000000';
     setArray();
 });
 
