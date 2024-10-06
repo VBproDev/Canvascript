@@ -81,23 +81,27 @@ function drawLines() {
         let CA2 = canvasArray[i + 1];
 
         if (int(CA1) && int(CA2)) {
+            // coordinates of points
             ctx.moveTo(CA1, CA2);
             ctx.lineTo(canvasArray[i + 2], canvasArray[i + 3]);
             i += 4;
         } else {
-            if (!(int(CA1) || int(CA2))) {
+            if (!int(CA1) && int(CA2)) {
+                // Line color and line width
                 ctx.stroke();
                 ctx.beginPath();
                 ctx.strokeStyle = CA1;
-                ctx.lineWidth = CA1 || "#000";
+                ctx.lineWidth = CA2;
                 i += 2;
             } else {
                 if (Math.sign(CA1)) {
+                    // line width
                     ctx.stroke();
                     ctx.beginPath();
                     ctx.lineWidth = CA1;
                     i++;
                 } else {
+                    // line color
                     ctx.stroke();
                     ctx.beginPath();
                     ctx.strokeStyle = CA1 || "#000";
@@ -214,7 +218,6 @@ canvas.addEventListener('pointerdown', (e) => {
     const localStroke = document.querySelector('.stroke-width').value || 1;
     if (localStroke !== '0') {
         const localColor = document.querySelector('.color').value;
-
         if (localColor !== color) {
             color = localColor;
             num++;
@@ -234,7 +237,6 @@ canvas.addEventListener('pointerdown', (e) => {
         canvasArray[num] = x;
         num++;
         canvasArray[num] = y;
-
         canvas.addEventListener('pointermove', previewLineHandler);
     }
 
@@ -287,8 +289,6 @@ reset.addEventListener('click', () => {
     canvasArray = [];
     num = -1;
     localStorage.removeItem('canvasArray');
-    stroke = 1;
-    color = '#000000';
     setArray();
 });
 
