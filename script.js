@@ -89,7 +89,7 @@ function drawLines() {
                 ctx.stroke();
                 ctx.beginPath();
                 ctx.strokeStyle = CA1;
-                ctx.lineWidth = CA1;
+                ctx.lineWidth = +CA2;
                 i += 2;
             } else {
                 if (Math.sign(CA1)) {
