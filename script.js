@@ -89,7 +89,7 @@ function drawLines() {
                 ctx.stroke();
                 ctx.beginPath();
                 ctx.strokeStyle = CA1;
-                ctx.lineWidth = CA1 || "#000";
+                ctx.lineWidth = CA1;
                 i += 2;
             } else {
                 if (Math.sign(CA1)) {
@@ -100,7 +100,7 @@ function drawLines() {
                 } else {
                     ctx.stroke();
                     ctx.beginPath();
-                    ctx.strokeStyle = CA1 || "#000";
+                    ctx.strokeStyle = CA1;
                     i++;
                 };
             };
@@ -124,7 +124,7 @@ function generateCode() {
             i += 4;
         } else {
             if (!(int(CA1) || int(CA2))) {
-                space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1 || "#000"}';</div>`;
+                space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`;
                 space.innerHTML += `<div>ctx.lineWidth = '${CA2}';</div>`;
                 i += 2;
             } else {
@@ -132,7 +132,7 @@ function generateCode() {
                     space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.lineWidth = '${CA1}';</div>`;
                     i++;
                 } else {
-                    space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1 || "#000"}';</div>`;
+                    space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`;
                     i++;
                 };
             };
