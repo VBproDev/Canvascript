@@ -287,6 +287,8 @@ reset.addEventListener('click', () => {
     canvasArray = [];
     num = -1;
     localStorage.removeItem('canvasArray');
+    stroke = 1;
+    color = '#000000';
     setArray();
 });
 
