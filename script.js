@@ -227,8 +227,8 @@ canvas.addEventListener('pointerdown', (e) => {
             canvasArray[num] = stroke;
         }
 
-        x = e.offsetX;
-        y = e.offsetY;
+        x = Math.round(e.offsetX);
+        y = Math.round(e.offsetY);
 
         num++;
         canvasArray[num] = x;
@@ -245,8 +245,8 @@ canvas.addEventListener('pointerdown', (e) => {
 
 canvas.addEventListener('pointerup', (e) => {
     if (stroke !== '0') {
-        let a = e.offsetX;
-        let b = e.offsetY;
+        let a = Math.round(e.offsetX);
+        let b = Math.round(e.offsetY);
 
         clear();
         drawGrid();
