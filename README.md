@@ -20,4 +20,4 @@ If anyone wants to add something to Canvascript, then they should fork the linte
 <i>None currently</i>
 <h2>Archived</h2>
 <p><a href="https://github.com/VBproDev/Canvascript/issues/8" target="_blank">#8</a> Resolved <a href="https://github.com/VBproDev/Canvascript/pull/9" target="_blank">here</a></p>
-<p><a href="https://github.com/VBproDev/Canvascript/issues/12" target="_blank">#12</a> Resolved <a href="https://github.com/VBproDev/Canvascript/pull/14" target="_blank">here</a></p>
+<p><a href="https://github.com/VBproDev/Canvascript/issues/12" target="_blank">#12</a> Resolved <a href="https://github.com/VBproDev/Canvascript/pull/15" target="_blank">here</a></p>
