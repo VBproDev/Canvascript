@@ -17,6 +17,7 @@ If anyone wants to add something to Canvascript, then they should fork the linte
 <p>We have a Discord server btw <a href="https://discord.gg/ZXMEkzfZXx" target="_blank">https://discord.gg/ZXMEkzfZXx</a></p>
 <h1>Edge cases</h1>
 <h2>Active issues</h2>
-<p>Check it here <a href="https://github.com/VBproDev/Canvascript/issues/12">#12</a></p>
+<i>None currently</i>
 <h2>Archived</h2>
-<p><s>If you set the line width to 0, unexpected things may happen, for more details and list of the features that break you should refer to issue #8. I am currently assesing this problem.</s> Resolved <a href="https://github.com/VBproDev/Canvascript/pull/9" target="_blank">here</a></p>
+<p><a href="https://github.com/VBproDev/Canvascript/issues/8" target="_blank">#8</a> Resolved <a href="https://github.com/VBproDev/Canvascript/pull/9" target="_blank">here</a></p>
+<p><a href="https://github.com/VBproDev/Canvascript/issues/12" target="_blank">#12</a> Resolved <a href="https://github.com/VBproDev/Canvascript/pull/14" target="_blank">here</a></p>
