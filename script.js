@@ -110,6 +110,8 @@ function drawLines() {
 
 function generateCode() {
     const space = document.querySelector('.space');
+    const range = document.createRange();
+    const selection = window.getSelection();
     let i = 0;
     space.innerHTML = '';
     space.innerHTML += `<div>const canvas = document.querySelector(\'canvas\');</div><div>const ctx = canvas.getContext(\'2d\');</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '#000000';</div><div>ctx.lineWidth = 1;</div>`
@@ -139,7 +141,9 @@ function generateCode() {
         };
     };
     space.innerHTML += '<div>ctx.stroke();</div>';
-
+    selection.removeAllRanges(); 
+    range.selectNodeContents(space);
+    selection.addRange(range);
 };
 
 function resize(type, ...rest) {
