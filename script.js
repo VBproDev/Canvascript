@@ -2,7 +2,6 @@ const canvas = document.querySelector('.canvas');
 const reset = document.querySelector('.reset');
 const generate = document.querySelector('.generate');
 const redo = document.querySelector('.redo');
-const space = document.querySelector('.space');
 const set = document.querySelector('.setBtn');
 const ctx = canvas.getContext('2d');
 const copy = document.querySelector('.copy');
@@ -110,6 +109,7 @@ function drawLines() {
 };
 
 function generateCode() {
+    const space = document.querySelector('.space');
     let i = 0;
     space.innerHTML = '';
     space.innerHTML += `<div>const canvas = document.querySelector(\'canvas\');</div><div>const ctx = canvas.getContext(\'2d\');</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '#000000';</div><div>ctx.lineWidth = 1;</div>`
@@ -139,6 +139,7 @@ function generateCode() {
         };
     };
     space.innerHTML += '<div>ctx.stroke();</div>';
+
 };
 
 function resize(type, ...rest) {
