@@ -141,7 +141,7 @@ function generateCode() {
         };
     };
     space.innerHTML += '<div>ctx.stroke();</div>';
-    selection.removeAllRanges(); 
+    selection.removeAllRanges();
     range.selectNodeContents(space);
     selection.addRange(range);
 };
