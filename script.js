@@ -1,16 +1,20 @@
-const canvas = document.querySelector('.canvas');
-const reset = document.querySelector('.reset');
-const generate = document.querySelector('.generate');
-const redo = document.querySelector('.redo');
-const set = document.querySelector('.setBtn');
-const ctx = canvas.getContext('2d');
-const copy = document.querySelector('.copy');
-const design = document.querySelector('.design');
-const userDesign = document.querySelector('.user-design');
-const save = document.querySelector('.save');
-const localCanvas = localStorage.getItem('canvasArray');
+// @ts-check
+const /** @type{HTMLCanvasElement | null} */ canvas = document.querySelector('.canvas');
+const ctx = canvas ? canvas.getContext('2d') : null;
+const /** @type{HTMLButtonElement | null} */ reset = document.querySelector('.reset');
+const /** @type{HTMLButtonElement | null} */ generate = document.querySelector('.generate');
+const /** @type{HTMLButtonElement | null} */ redo = document.querySelector('.redo');
+const /** @type{HTMLButtonElement | null} */ set = document.querySelector('.setBtn');
+const /** @type{HTMLButtonElement | null} */ copy = document.querySelector('.copy');
+const /** @type{HTMLInputElement | null} */ design = document.querySelector('.design');
+const /** @type{HTMLButtonElement | null} */ userDesign = document.querySelector('.user-design');
+const /** @type{HTMLInputElement | null} */ newDesign = document.querySelector('.new-design');
+const /** @type{HTMLButtonElement | null} */ save = document.querySelector('.save');
+const localCanvasArray = localStorage.getItem('canvasArray');
+const /** @type{HTMLInputElement | null} */ widthInput = document.querySelector('.width');
+const /** @type{HTMLInputElement | null} */ heightInput = document.querySelector('.height');
 
-const previewLineHandler = (e) => {
+const previewLineHandler = (/** @type {PointerEvent} */ e) => {
     clear();
     drawGrid();
     drawLines();
@@ -26,36 +30,46 @@ let y;
 let num = -1;
 let canvasArray = [];
 let warnedUser = false;
-let newDesign;
 
+/**
+ * @param {{ offsetX: any; offsetY: any; }} event
+ */
 function previewLine(event) {
     const atX = event.offsetX;
     const atY = event.offsetY;
-
-    ctx.beginPath();
-    ctx.strokeStyle = color;
-    ctx.lineWidth = stroke > 0 ? stroke : 0;
-    ctx.moveTo(x, y);
-    ctx.lineTo(atX, atY);
-    ctx.stroke();
+    if (ctx) {
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = stroke > 0 ? stroke : 0;
+        ctx.moveTo(x, y);
+        ctx.lineTo(atX, atY);
+        ctx.stroke();
+    }
 }
 
+/**
+ * @param {any} n
+ */
 function int(n) {
     return typeof n === 'number';
 }
 
 function copyText() {
-    design.select();
-    design.setSelectionRange(0, 99999999);
-    navigator.clipboard.writeText(JSON.stringify(canvasArray));
+    if (design) {
+        design.select();
+        design.setSelectionRange(0, 99999999);
+        navigator.clipboard.writeText(JSON.stringify(canvasArray));
+    }
 }
 
 function setArray() {
-    if (canvasArray.length === 0) {
-        design.value = '[ ]'
-    } else {
-        design.value = JSON.stringify(canvasArray);
-    };
+    if (design) {
+        if (canvasArray.length === 0) {
+            design.value = '[ ]'
+        } else {
+            design.value = JSON.stringify(canvasArray);
+        };
+    }
 }
 
 function redoFunc() {
@@ -66,46 +80,50 @@ function redoFunc() {
 }
 
 function clear() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (canvas && ctx) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
 };
 
 function drawLines() {
-    let i = 0;
-    ctx.beginPath()
-    ctx.strokeStyle = '#000000';
-    ctx.lineWidth = 1;
+    if (canvas && ctx) {
+        let i = 0;
+        ctx.beginPath()
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 1;
 
-    while (i < canvasArray.length) {
-        let CA1 = canvasArray[i];
-        let CA2 = canvasArray[i + 1];
+        while (i < canvasArray.length) {
+            let CA1 = canvasArray[i];
+            let CA2 = canvasArray[i + 1];
 
-        if (int(CA1) && int(CA2)) {
-            ctx.moveTo(CA1, CA2);
-            ctx.lineTo(canvasArray[i + 2], canvasArray[i + 3]);
-            i += 4;
-        } else {
-            if (!(int(CA1) || int(CA2))) {
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.strokeStyle = CA1;
-                ctx.lineWidth = +CA2;
-                i += 2;
+            if (int(CA1) && int(CA2)) {
+                ctx.moveTo(CA1, CA2);
+                ctx.lineTo(canvasArray[i + 2], canvasArray[i + 3]);
+                i += 4;
             } else {
-                if (Math.sign(CA1)) {
-                    ctx.stroke();
-                    ctx.beginPath();
-                    ctx.lineWidth = CA1;
-                    i++;
-                } else {
+                if (!(int(CA1) || int(CA2))) {
                     ctx.stroke();
                     ctx.beginPath();
                     ctx.strokeStyle = CA1;
-                    i++;
+                    ctx.lineWidth = +CA2;
+                    i += 2;
+                } else {
+                    if (Math.sign(CA1)) {
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.lineWidth = CA1;
+                        i++;
+                    } else {
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.strokeStyle = CA1;
+                        i++;
+                    };
                 };
             };
         };
-    };
-    ctx.stroke();
+        ctx.stroke();
+    }
 };
 
 function generateCode() {
@@ -113,86 +131,97 @@ function generateCode() {
     const range = document.createRange();
     const selection = window.getSelection();
     let i = 0;
-    space.innerHTML = '';
-    space.innerHTML += `<div>const canvas = document.querySelector(\'canvas\');</div><div>const ctx = canvas.getContext(\'2d\');</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '#000000';</div><div>ctx.lineWidth = 1;</div>`
+    if (space && selection) {
+        space.innerHTML = `<div>const canvas = document.querySelector(\'canvas\');</div><div>const ctx = canvas.getContext(\'2d\');</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '#000000';</div><div>ctx.lineWidth = 1;</div>`
 
-    while (i < canvasArray.length) {
-        let CA1 = canvasArray[i];
-        let CA2 = canvasArray[i + 1];
 
-        if (int(CA1) && int(CA2)) {
-            space.innerHTML += `<div>ctx.moveTo(${CA1}, ${CA2});</div>`;
-            space.innerHTML += `<div>ctx.lineTo(${canvasArray[i + 2]}, ${canvasArray[i + 3]});</div>`;
-            i += 4;
-        } else {
-            if (!(int(CA1) || int(CA2))) {
-                space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`;
-                space.innerHTML += `<div>ctx.lineWidth = '${CA2}';</div>`;
-                i += 2;
+        while (i < canvasArray.length) {
+            let CA1 = canvasArray[i];
+            let CA2 = canvasArray[i + 1];
+
+            if (int(CA1) && int(CA2)) {
+                space.innerHTML += `<div>ctx.moveTo(${CA1}, ${CA2});</div>`;
+                space.innerHTML += `<div>ctx.lineTo(${canvasArray[i + 2]}, ${canvasArray[i + 3]});</div>`;
+                i += 4;
             } else {
-                if (Math.sign(CA1)) {
-                    space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.lineWidth = '${CA1}';</div>`;
-                    i++;
-                } else {
+                if (!(int(CA1) || int(CA2))) {
                     space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`;
-                    i++;
+                    space.innerHTML += `<div>ctx.lineWidth = '${CA2}';</div>`;
+                    i += 2;
+                } else {
+                    if (Math.sign(CA1)) {
+                        space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.lineWidth = '${CA1}';</div>`;
+                        i++;
+                    } else {
+                        space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`;
+                        i++;
+                    };
                 };
             };
         };
-    };
-    space.innerHTML += '<div>ctx.stroke();</div>';
-    selection.removeAllRanges();
-    range.selectNodeContents(space);
-    selection.addRange(range);
+        space.innerHTML += '<div>ctx.stroke();</div>';
+        selection.removeAllRanges();
+        range.selectNodeContents(space);
+        selection.addRange(range);
+    }
 };
 
+/**
+ * @param {string} type
+ * @param {number[]} rest
+ */
 function resize(type, ...rest) {
     if (type === 'def') {
-        height = window.innerHeight;
-        width = window.innerWidth;
-        canvas.width = (width / 100) * 70;
-        canvas.height = (height / 100) * 72.5;
+        if (canvas) {
+            canvas.width = (window.innerWidth / 100) * 70;
+            canvas.height = (window.innerHeight / 100) * 72.5;
+        }
     } else {
-        canvas.width = rest[0];
-        canvas.height = rest[1];
+        if (canvas) {
+            canvas.width = rest[0];
+            canvas.height = rest[1];
+        }
     }
 }
 
 function drawGrid() {
-    const gridSize = 2.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
-    canvasWidth = document.querySelector('.width').value || canvas.width;
-    canvasHeight = document.querySelector('.height').value || canvas.height;
+    if (canvas && ctx) {
+        const gridSize = 2.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+        const canvasWidth = widthInput ? parseInt(widthInput.value) : canvas.width;
+        const canvasHeight = heightInput ? parseInt(heightInput.value) : canvas.height;
 
-    ctx.beginPath();
-    ctx.strokeStyle = "#AAAAAA";
-    ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.strokeStyle = "#AAAAAA";
+        ctx.lineWidth = 1;
 
-    for (let x = 0; x <= canvasWidth; x += gridSize) {
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvasHeight);
+        for (let x = 0; x <= canvasWidth; x += gridSize) {
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvasHeight);
+        }
+
+        for (let y = 0; y <= canvasHeight; y += gridSize) {
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvasWidth, y);
+        }
+
+        ctx.stroke();
     }
 
-    for (let y = 0; y <= canvasHeight; y += gridSize) {
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvasWidth, y);
-    }
-
-    ctx.stroke();
 }
 
 resize('def');
 drawGrid();
 
-if (localCanvas !== null) {
-    canvasArray = JSON.parse(localCanvas);
+if (localCanvasArray !== null) {
+    canvasArray = JSON.parse(localCanvasArray);
     drawLines();
 }
 
 setArray();
 
 window.addEventListener('resize', (e) => {
-    const canvasWidth = document.querySelector('.width').value;
-    const canvasHeight = document.querySelector('.height').value;
+    const canvasWidth = widthInput ? parseInt(widthInput.value) : 0;
+    const canvasHeight = heightInput ? parseInt(heightInput.value) : 0;
 
     if (!(canvasWidth && canvasHeight)) {
         resize('def');
@@ -211,112 +240,132 @@ window.addEventListener('beforeunload', (e) => {
     }
 });
 
-canvas.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-});
+if (canvas) {
+    canvas.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+    });
 
-canvas.addEventListener('pointerdown', (e) => {
-    const localStroke = document.querySelector('.stroke-width').value || 1;
-    if (localStroke !== '0') {
-        const localColor = document.querySelector('.color').value;
+    canvas.addEventListener('pointerdown', (e) => {
+        const /** @type{HTMLInputElement | null} */ strokeInput = document.querySelector('.stroke-width');
+        const localStroke = strokeInput ? parseInt(strokeInput.value) : 1;
+        if (localStroke !== 0) {
+            const /** @type{HTMLInputElement | null} */ colorInput = document.querySelector('.color');
+            const localColor = colorInput ? colorInput.value : color;
 
-        if (localColor !== color) {
-            color = localColor;
+            if (localColor !== color) {
+                color = localColor;
+                num++;
+                canvasArray[num] = color;
+            }
+
+            if (localStroke !== stroke) {
+                stroke = localStroke;
+                num++;
+                canvasArray[num] = stroke;
+            }
+
+            x = Math.round(e.offsetX);
+            y = Math.round(e.offsetY);
+
             num++;
-            canvasArray[num] = color;
+            canvasArray[num] = x;
+            num++;
+            canvasArray[num] = y;
+
+            canvas.addEventListener('pointermove', previewLineHandler);
         }
 
-        if (localStroke !== stroke) {
+        else {
             stroke = localStroke;
-            num++;
-            canvasArray[num] = stroke;
         }
+    });
 
-        x = Math.round(e.offsetX);
-        y = Math.round(e.offsetY);
+    canvas.addEventListener('pointerup', (e) => {
+        if (stroke !== 0 && ctx) {
+            let a = Math.round(e.offsetX);
+            let b = Math.round(e.offsetY);
 
-        num++;
-        canvasArray[num] = x;
-        num++;
-        canvasArray[num] = y;
+            clear();
+            drawGrid();
+            drawLines();
 
-        canvas.addEventListener('pointermove', previewLineHandler);
-    }
+            canvas.removeEventListener('pointermove', previewLineHandler);
 
-    else {
-        stroke = localStroke;
-    }
-});
+            num++;
+            canvasArray[num] = a;
+            num++;
+            canvasArray[num] = b;
 
-canvas.addEventListener('pointerup', (e) => {
-    if (stroke !== '0') {
-        let a = Math.round(e.offsetX);
-        let b = Math.round(e.offsetY);
+            ctx.beginPath();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = stroke;
+            ctx.moveTo(x, y);
+            ctx.lineTo(a, b);
+            ctx.stroke();
+            setArray();
+        }
+    });
+}
 
+if (redo) {
+    redo.addEventListener('click', () => {
         clear();
+        redoFunc();
         drawGrid();
         drawLines();
-
-        canvas.removeEventListener('pointermove', previewLineHandler);
-
-        num++;
-        canvasArray[num] = a;
-        num++;
-        canvasArray[num] = b;
-
-        ctx.beginPath();
-        ctx.strokeStyle = color;
-        ctx.lineWidth = stroke;
-        ctx.moveTo(x, y);
-        ctx.lineTo(a, b);
-        ctx.stroke();
         setArray();
-    }
-});
+    });
+}
 
-redo.addEventListener('click', () => {
-    clear();
-    redoFunc();
-    drawGrid();
-    drawLines();
-    setArray();
-});
+if (generate) {
+    generate.addEventListener('click', () => {
+        generateCode();
+    });
+}
 
-generate.addEventListener('click', () => {
-    generateCode();
-});
+if (reset) {
+    reset.addEventListener('click', () => {
+        clear();
+        drawGrid();
+        canvasArray = [];
+        num = -1;
+        localStorage.removeItem('canvasArray');
+        stroke = 1;
+        color = '#000000';
+        setArray();
+    });
+}
 
-reset.addEventListener('click', () => {
-    clear();
-    drawGrid();
-    canvasArray = [];
-    num = -1;
-    localStorage.removeItem('canvasArray');
-    stroke = 1;
-    color = '#000000';
-    setArray();
-});
+if (set) {
+    set.addEventListener('click', () => {
+        if (widthInput && heightInput) {
+            canvasWidth = parseInt(widthInput.value);
+            canvasHeight = parseInt(heightInput.value);
+            resize('custom', canvasWidth, canvasHeight);
+            drawGrid();
+            drawLines();
+        }
+    });
+}
 
-set.addEventListener('click', () => {
-    canvasWidth = document.querySelector('.width').value;
-    canvasHeight = document.querySelector('.height').value;
-    resize('custom', canvasWidth, canvasHeight);
-    drawGrid();
-    drawLines();
-});
+if (copy) {
+    copy.addEventListener('click', () => {
+        copyText();
+    });
+}
 
-copy.addEventListener('click', () => {
-    copyText();
-});
+if (userDesign) {
+    userDesign.addEventListener('click', () => {
+        clear();
+        canvasArray = newDesign ? JSON.parse(newDesign.value) : [];
+        drawGrid();
+        drawLines();
+        setArray();
+    });
+}
 
-userDesign.addEventListener('click', () => {
-    clear();
-    canvasArray = JSON.parse(document.querySelector('.new-design').value);
-    drawGrid();
-    drawLines();
-    setArray();
-});
-
-save.addEventListener('click', () => {
-    localStorage.setItem('canvasArray', JSON.stringify(canvasArray));
-});
+if (save) {
+    save.addEventListener('click', () => {
+        localStorage.setItem('canvasArray', JSON.stringify(canvasArray));
+    });
+}
