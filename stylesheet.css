@@ -26,3 +26,12 @@ body {
 .img {
     cursor: copy;
 }
+
+.container {
+    margin-bottom: 2rem !important;
+}
+
+.text-muted {
+    margin-top: 1rem !important;
+    margin-bottom: 0.5rem !important;
+}

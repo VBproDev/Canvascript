@@ -322,7 +322,7 @@ copy?.addEventListener('click', () => {
 
 userDesign?.addEventListener('click', () => {
     clear();
-    canvasArray = JSON.parse((document.querySelector('.new-design') as HTMLInputElement).value);
+    canvasArray = JSON.parse((document.querySelector('.design') as HTMLInputElement).value);
     drawGrid();
     drawLines();
     setArray();

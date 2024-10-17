@@ -303,7 +303,7 @@ copy === null || copy === void 0 ? void 0 : copy.addEventListener('click', funct
 });
 userDesign === null || userDesign === void 0 ? void 0 : userDesign.addEventListener('click', function () {
     clear();
-    canvasArray = JSON.parse(document.querySelector('.new-design').value);
+    canvasArray = JSON.parse(document.querySelector('.design').value);
     drawGrid();
     drawLines();
     setArray();
