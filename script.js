@@ -1,32 +1,33 @@
-var canvas = document.querySelector('.canvas');
-var reset = document.querySelector('.reset');
-var generate = document.querySelector('.generate');
-var redo = document.querySelector('.redo');
-var set = document.querySelector('.setBtn');
-var ctx = canvas.getContext('2d');
-var copy = document.querySelector('.copy');
-var design = document.querySelector('.design');
-var userDesign = document.querySelector('.user-design');
-var save = document.querySelector('.save');
-var localCanvas = localStorage.getItem('canvasArray');
-var previewLineHandler = function (e) {
+"use strict";
+const canvas = document.querySelector('.canvas');
+const reset = document.querySelector('.reset');
+const generate = document.querySelector('.generate');
+const redo = document.querySelector('.redo');
+const set = document.querySelector('.setBtn');
+const ctx = canvas.getContext('2d');
+const copy = document.querySelector('.copy');
+const design = document.querySelector('.design');
+const userDesign = document.querySelector('.user-design');
+const save = document.querySelector('.save');
+const localCanvas = localStorage.getItem('canvasArray');
+const previewLineHandler = (e) => {
     clear();
     drawGrid();
     drawLines();
     previewLine(e);
 };
-var stroke = 1;
-var color = '#000000';
-var canvasWidth;
-var canvasHeight;
-var x;
-var y;
-var num = -1;
-var canvasArray = [];
-var warnedUser = false;
+let stroke = 1;
+let color = '#000000';
+let canvasWidth;
+let canvasHeight;
+let x;
+let y;
+let num = -1;
+let canvasArray = [];
+let warnedUser = false;
 function previewLine(event) {
-    var atX = event.offsetX;
-    var atY = event.offsetY;
+    const atX = event.offsetX;
+    const atY = event.offsetY;
     if (ctx) {
         ctx.beginPath();
         ctx.strokeStyle = color;
@@ -55,7 +56,7 @@ function setArray() {
     ;
 }
 function redoFunc() {
-    for (var i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i++) {
         canvasArray.pop();
     }
     num -= 4;
@@ -65,14 +66,14 @@ function clear() {
 }
 ;
 function drawLines() {
-    var i = 0;
+    let i = 0;
     if (ctx) {
         ctx.beginPath();
         ctx.strokeStyle = '#000000';
         ctx.lineWidth = 1;
         while (i < canvasArray.length) {
-            var CA1 = canvasArray[i];
-            var CA2 = canvasArray[i + 1];
+            let CA1 = canvasArray[i];
+            let CA2 = canvasArray[i + 1];
             if (int(CA1) && int(CA2)) {
                 ctx.moveTo(CA1, CA2);
                 ctx.lineTo(+canvasArray[i + 2], +canvasArray[i + 3]);
@@ -112,34 +113,34 @@ function drawLines() {
 }
 ;
 function generateCode() {
-    var space = document.querySelector('.space');
-    var range = document.createRange();
-    var selection = window.getSelection();
-    var i = 0;
+    const space = document.querySelector('.space');
+    const range = document.createRange();
+    const selection = window.getSelection();
+    let i = 0;
     if (space) {
         space.innerHTML = '';
-        space.innerHTML += "<div>const canvas = document.querySelector('canvas');</div><div>const ctx = canvas.getContext('2d');</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '#000000';</div><div>ctx.lineWidth = 1;</div>";
+        space.innerHTML += `<div>const canvas = document.querySelector(\'canvas\');</div><div>const ctx = canvas.getContext(\'2d\');</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '#000000';</div><div>ctx.lineWidth = 1;</div>`;
         while (i < canvasArray.length) {
-            var CA1 = canvasArray[i];
-            var CA2 = canvasArray[i + 1];
+            let CA1 = canvasArray[i];
+            let CA2 = canvasArray[i + 1];
             if (int(CA1) && int(CA2)) {
-                space.innerHTML += "<div>ctx.moveTo(".concat(CA1, ", ").concat(CA2, ");</div>");
-                space.innerHTML += "<div>ctx.lineTo(".concat(canvasArray[i + 2], ", ").concat(canvasArray[i + 3], ");</div>");
+                space.innerHTML += `<div>ctx.moveTo(${CA1}, ${CA2});</div>`;
+                space.innerHTML += `<div>ctx.lineTo(${canvasArray[i + 2]}, ${canvasArray[i + 3]});</div>`;
                 i += 4;
             }
             else {
                 if (!(int(CA1) || int(CA2))) {
-                    space.innerHTML += "<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '".concat(CA1, "';</div>");
-                    space.innerHTML += "<div>ctx.lineWidth = '".concat(CA2, "';</div>");
+                    space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`;
+                    space.innerHTML += `<div>ctx.lineWidth = '${CA2}';</div>`;
                     i += 2;
                 }
                 else {
                     if (Math.sign(+CA1)) {
-                        space.innerHTML += "<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.lineWidth = '".concat(CA1, "';</div>");
+                        space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.lineWidth = '${CA1}';</div>`;
                         i++;
                     }
                     else {
-                        space.innerHTML += "<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '".concat(CA1, "';</div>");
+                        space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`;
                         i++;
                     }
                     ;
@@ -157,14 +158,10 @@ function generateCode() {
     ;
 }
 ;
-function resize(type) {
-    var rest = [];
-    for (var _i = 1; _i < arguments.length; _i++) {
-        rest[_i - 1] = arguments[_i];
-    }
+function resize(type, ...rest) {
     if (type === 'def') {
-        var height = window.innerHeight;
-        var width = window.innerWidth;
+        const height = window.innerHeight;
+        const width = window.innerWidth;
         canvas.width = (width / 100) * 70;
         canvas.height = (height / 100) * 72.5;
     }
@@ -174,20 +171,20 @@ function resize(type) {
     }
 }
 function drawGrid() {
-    var gridSize = 2.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const gridSize = 2.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
     canvasWidth = +document.querySelector('.width').value || canvas.width;
     canvasHeight = +document.querySelector('.height').value || canvas.height;
     if (ctx) {
         ctx.beginPath();
         ctx.strokeStyle = "#AAAAAA";
         ctx.lineWidth = 1;
-        for (var x_1 = 0; x_1 <= canvasWidth; x_1 += gridSize) {
-            ctx.moveTo(x_1, 0);
-            ctx.lineTo(x_1, canvasHeight);
+        for (let x = 0; x <= canvasWidth; x += gridSize) {
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvasHeight);
         }
-        for (var y_1 = 0; y_1 <= canvasHeight; y_1 += gridSize) {
-            ctx.moveTo(0, y_1);
-            ctx.lineTo(canvasWidth, y_1);
+        for (let y = 0; y <= canvasHeight; y += gridSize) {
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvasWidth, y);
         }
         ctx.stroke();
     }
@@ -200,7 +197,7 @@ if (localCanvas !== null) {
     drawLines();
 }
 setArray();
-window.addEventListener('resize', function (e) {
+window.addEventListener('resize', (e) => {
     canvasWidth = +(document.querySelector('.width').value);
     canvasHeight = +(document.querySelector('.height').value);
     if (!(canvasWidth && canvasHeight)) {
@@ -212,19 +209,19 @@ window.addEventListener('resize', function (e) {
     drawGrid();
     drawLines();
 });
-window.addEventListener('beforeunload', function (e) {
+window.addEventListener('beforeunload', (e) => {
     if (localStorage.getItem('canvasArray') !== JSON.stringify(canvasArray) && !warnedUser) {
         e.preventDefault();
         warnedUser = true;
     }
 });
-canvas.addEventListener('contextmenu', function (e) {
+canvas.addEventListener('contextmenu', (e) => {
     e.preventDefault();
 });
-canvas.addEventListener('pointerdown', function (e) {
-    var localStroke = document.querySelector('.stroke-width').value || 1;
+canvas.addEventListener('pointerdown', (e) => {
+    const localStroke = document.querySelector('.stroke-width').value || 1;
     if (localStroke !== '0') {
-        var localColor = document.querySelector('.color').value;
+        const localColor = document.querySelector('.color').value;
         if (localColor !== color) {
             color = localColor;
             num++;
@@ -247,10 +244,10 @@ canvas.addEventListener('pointerdown', function (e) {
         stroke = localStroke;
     }
 });
-canvas.addEventListener('pointerup', function (e) {
+canvas.addEventListener('pointerup', (e) => {
     if (stroke !== 0) {
-        var a = Math.round(e.offsetX);
-        var b = Math.round(e.offsetY);
+        let a = Math.round(e.offsetX);
+        let b = Math.round(e.offsetY);
         clear();
         drawGrid();
         drawLines();
@@ -271,17 +268,17 @@ canvas.addEventListener('pointerup', function (e) {
         ;
     }
 });
-redo === null || redo === void 0 ? void 0 : redo.addEventListener('click', function () {
+redo === null || redo === void 0 ? void 0 : redo.addEventListener('click', () => {
     clear();
     redoFunc();
     drawGrid();
     drawLines();
     setArray();
 });
-generate === null || generate === void 0 ? void 0 : generate.addEventListener('click', function () {
+generate === null || generate === void 0 ? void 0 : generate.addEventListener('click', () => {
     generateCode();
 });
-reset === null || reset === void 0 ? void 0 : reset.addEventListener('click', function () {
+reset === null || reset === void 0 ? void 0 : reset.addEventListener('click', () => {
     clear();
     drawGrid();
     canvasArray = [];
@@ -291,23 +288,23 @@ reset === null || reset === void 0 ? void 0 : reset.addEventListener('click', fu
     color = '#000000';
     setArray();
 });
-set === null || set === void 0 ? void 0 : set.addEventListener('click', function () {
+set === null || set === void 0 ? void 0 : set.addEventListener('click', () => {
     canvasWidth = +(document.querySelector('.width').value);
     canvasHeight = +(document.querySelector('.height').value);
     resize('custom', canvasWidth, canvasHeight);
     drawGrid();
     drawLines();
 });
-copy === null || copy === void 0 ? void 0 : copy.addEventListener('click', function () {
+copy === null || copy === void 0 ? void 0 : copy.addEventListener('click', () => {
     copyText();
 });
-userDesign === null || userDesign === void 0 ? void 0 : userDesign.addEventListener('click', function () {
+userDesign === null || userDesign === void 0 ? void 0 : userDesign.addEventListener('click', () => {
     clear();
     canvasArray = JSON.parse(document.querySelector('.design').value);
     drawGrid();
     drawLines();
     setArray();
 });
-save === null || save === void 0 ? void 0 : save.addEventListener('click', function () {
+save === null || save === void 0 ? void 0 : save.addEventListener('click', () => {
     localStorage.setItem('canvasArray', JSON.stringify(canvasArray));
 });
