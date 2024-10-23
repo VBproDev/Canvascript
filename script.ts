@@ -187,7 +187,7 @@ function drawGrid() {
 
         ctx.stroke();
     };
-}
+};
 
 resize('def');
 drawGrid();
@@ -226,6 +226,7 @@ canvas.addEventListener('contextmenu', (e) => {
 
 canvas.addEventListener('pointerdown', (e) => {
     const localStroke = (document.querySelector('.stroke-width') as HTMLInputElement).value || 1;
+
     if (localStroke !== '0') {
         const localColor = (document.querySelector('.color') as HTMLInputElement).value;
 

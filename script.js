@@ -190,6 +190,7 @@ function drawGrid() {
     }
     ;
 }
+;
 resize('def');
 drawGrid();
 if (localCanvas !== null) {

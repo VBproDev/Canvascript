@@ -13,7 +13,8 @@ body {
     height: 1.75rem;
 }
 
-.copy-btn {
+.copy-btn, .discord, .github {
+    display: inline-block;
     width: 2rem;
     height: 2rem;
 }
@@ -22,8 +23,7 @@ body {
     flex: 1 !important;
 }
 
-.copy,
-.img {
+.copy {
     cursor: copy;
 }
 
@@ -34,4 +34,8 @@ body {
 .text-muted {
     margin-top: 1rem !important;
     margin-bottom: 0.5rem !important;
+}
+
+a {
+    text-decoration: none !important;
 }
