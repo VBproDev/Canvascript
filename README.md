@@ -10,9 +10,11 @@
     <meta property="og:url" content="https://vbprodev.github.io/Canvascript/">
     <meta property="og:type" content="website">
 <img src="assets/CanvaScript.png" alt="Canvascript logo">
-<h1>About</h1>
+<h1>About this</h1>
 <p>Draw on the canvas, then get the JS script to render it on the HTML canvas. A tool for graphic designers and developers.</p>
 <p>We have a Discord server btw <a href="https://discord.gg/ZXMEkzfZXx" target="_blank">https://discord.gg/ZXMEkzfZXx</a></p>
+<h1>How to use?</h1>
+<p>It's a web tool hosted on Github pages, so no need to install anything. Just click on the link in the <b>About</b> section.</p>
 <h1>Edge cases</h1>
 <h2>Active issues</h2>
 <i>None currently</i>
