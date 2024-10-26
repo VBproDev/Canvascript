@@ -12,39 +12,6 @@
     <meta property="og:image" content="https://vbprodev.github.io/Canvascript/CanvaScript.png" itemprop="image">
     <meta property="og:url" content="https://vbprodev.github.io/Canvascript/" itemprop="url">
     <meta property="og:type" content="website">
-
-    <!-- JSON-LD Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareSourceCode",
-      "name": "Canvascript",
-      "description": "Draw on the canvas, then get the JS script to render it on the HTML canvas. A no-code tool for web developers and graphic designers.",
-      "codeRepository": "https://github.com/VBproDev/Canvascript",
-      "programmingLanguage": "TypeScript",
-      "author": {
-        "@type": "Person",
-        "name": "Viraj Bijpuria"
-      },
-      "image": "https://vbprodev.github.io/Canvascript/CanvaScript.png",
-      "keywords": ["draw", "canvas", "JavaScript", "script", "render", "design", "no-code", "HTML", "Canvascript"],
-      "about": "A tool for drawing on HTML canvas and generating JavaScript rendering scripts.",
-      "url": "https://vbprodev.github.io/Canvascript/",
-      "softwareHelp": {
-        "@type": "CreativeWork",
-        "headline": "How to use",
-        "text": "It's a web tool hosted on GitHub Pages. Just click on the link in the About section to start using."
-      },
-      "softwareVersion": "1.0",
-      "issueTracker": "https://github.com/VBproDev/Canvascript/issues",
-      "mainEntityOfPage": "https://github.com/VBproDev/Canvascript",
-      "sameAs": [
-        "https://discord.gg/ZXMEkzfZXx",
-        "https://github.com/VBproDev/Canvascript"
-      ],
-      "isAccessibleForFree": "True"
-    }
-    </script>
 </head>
 
 <body>
