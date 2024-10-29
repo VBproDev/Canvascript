@@ -12,6 +12,7 @@
     <meta property="og:image" content="https://vbprodev.github.io/Canvascript/CanvaScript.png" itemprop="image">
     <meta property="og:url" content="https://vbprodev.github.io/Canvascript/" itemprop="url">
     <meta property="og:type" content="website">
+    <meta name="google-site-verification" content="uGLxS_S0M_R4G-b01F8z4qqJjk6M8cS-Szu6C7U6aNQ" />
 </head>
 
 <body>
