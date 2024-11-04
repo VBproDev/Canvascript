@@ -39,3 +39,27 @@ body {
 a {
     text-decoration: none !important;
 }
+
+.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    & div {
+        max-width: calc(100% - 2rem);
+        width: 20rem;
+        display: flex;
+        margin-top: 1rem;
+        gap: 1rem;
+    }
+
+    & .generate {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    & button:not(.generate) {
+        flex: 1;
+    }
+}
