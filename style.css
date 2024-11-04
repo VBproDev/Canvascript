@@ -108,6 +108,15 @@ button {
   &.primary:focus {
     background-color: #0069d9;
   }
+
+  &.success {
+    background-color: #28a745;
+  }
+
+  &.success:hover,
+  &.success:focus {
+    background-color: #218838;
+  }
 }
 
 footer {
@@ -115,13 +124,18 @@ footer {
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background: #007bff;
+  background: #1081f9;
   margin: 3rem 1rem 1rem 1rem;
   color: #fff;
   border-radius: 1rem;
 
   & a {
     color: #fff;
+    transition: 300ms ease;
+
+    &:hover {
+      text-decoration: underline !important;
+    }
   }
 }
 
@@ -181,5 +195,42 @@ footer {
       align-items: center;
       white-space: nowrap;
     }
+  }
+}
+
+.design_code {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > div {
+    width: 20rem;
+    max-width: calc(100% - 2rem);
+
+    & input {
+      margin-bottom: 1rem;
+    }
+
+    & button {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    & p {
+      font-size: 14px;
+      opacity: 0.7;
+      text-align: center;
+    }
+  }
+}
+
+.use_design {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  & button {
+    max-width: calc(100% - 2rem);
+    width: 20rem;
   }
 }
