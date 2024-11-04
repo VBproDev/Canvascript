@@ -84,13 +84,25 @@
         <button class="generate btn btn-success mb-3">Generate code</button>
     </div>
 
+    <div class="curve-input-container" id="0">
+        <div class="text-center m-1">Set curvature of line on X and Y axes 👇</div>
+
+        <div class="d-flex justify-content-center">
+            X (%):<input type="range" class="form-range w-25 curveX" value="0"><span class="curveXupdate">0</span>
+        </div>
+
+        <div class="d-flex justify-content-center mb-2">
+            Y (%):<input type="range" value="0" class="form-range w-25 curveY"><span class="curveYupdate">0</span>
+        </div>
+    </div>
+
     <code class="space"></code>
 
     <div class="container">
         <div class="row justify-content-center align-items-center">
             <div class="col-sm-7 col-xl-4 mb-2">
                 <div class="input-group">
-                    <input placeholder="width" id="width" class="width form-control">
+                    <input placeholder="width" name="width-input" class="width form-control">
                     <div class="input-group-append">
                         <span class="input-group-text">px</span>
                     </div>
@@ -103,7 +115,7 @@
 
             <div class="col-sm-7 col-xl-4 mb-2">
                 <div class="input-group">
-                    <input placeholder="height" id="height" class="height form-control">
+                    <input placeholder="height" name="height-input" class="height form-control">
                     <div class="input-group-append">
                         <span class="input-group-text">px</span>
                     </div>
@@ -119,7 +131,7 @@
     <div class="d-flex justify-content-center">
         <div class="col-sm-7 col-xl-5 mb-2">
             <div class="input-group">
-                <input class="design form-control">
+                <input name="user-design-array-input" class="design form-control">
                 <div class="input-group-append">
                     <span class="input-group-text me-2 copy">
                         <img class="copy-btn" src="assets/copy.png" alt="Copy to clipboard">Copy

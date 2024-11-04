@@ -9,6 +9,7 @@ const copy = document.querySelector('.copy');
 const design = document.querySelector('.design');
 const userDesign = document.querySelector('.user-design');
 const save = document.querySelector('.save');
+const curveInputContainer = document.querySelector('.curve-input-container');
 const localCanvas = localStorage.getItem('canvasArray');
 const previewLineHandler = (e) => {
     clear();
@@ -16,7 +17,7 @@ const previewLineHandler = (e) => {
     drawLines();
     previewLine(e);
 };
-let stroke = 1;
+let stroke = '1';
 let color = '#000000';
 let canvasWidth;
 let canvasHeight;
@@ -25,6 +26,7 @@ let y;
 let num = -1;
 let canvasArray = [];
 let warnedUser = false;
+let cycleID = -1;
 function previewLine(event) {
     const atX = event.offsetX;
     const atY = event.offsetY;
@@ -56,11 +58,21 @@ function setArray() {
     ;
 }
 function redoFunc() {
-    for (let i = 0; i < 4; i++) {
-        canvasArray.pop();
+    const CA1 = canvasArray[canvasArray.length - 1];
+    if (int(CA1)) {
+        for (let i = 0; i < 4; i++) {
+            canvasArray.pop();
+        }
+        ;
+        num -= 4;
     }
-    num -= 4;
+    else if (Array.isArray(CA1)) {
+        canvasArray.pop();
+        num--;
+    }
+    ;
 }
+;
 function clear() {
     ctx === null || ctx === void 0 ? void 0 : ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -75,15 +87,20 @@ function drawLines() {
             let CA1 = canvasArray[i];
             let CA2 = canvasArray[i + 1];
             if (int(CA1) && int(CA2)) {
-                ctx.moveTo(CA1, CA2);
+                ctx.moveTo(+CA1, +CA2);
                 ctx.lineTo(+canvasArray[i + 2], +canvasArray[i + 3]);
                 i += 4;
             }
+            else if (Array.isArray(CA1)) {
+                ctx.moveTo(CA1[0], CA1[1]);
+                ctx.quadraticCurveTo(CA1[2], CA1[3], CA1[4], CA1[5]);
+                i++;
+            }
             else {
-                if (!(int(CA1) || int(CA2))) {
+                if (!(int(CA1) || int(CA2)) && !Array.isArray(CA2)) {
                     ctx.stroke();
                     ctx.beginPath();
-                    ctx.strokeStyle = CA1;
+                    ctx.strokeStyle = CA1.toString();
                     ctx.lineWidth = +CA2;
                     i += 2;
                 }
@@ -128,8 +145,13 @@ function generateCode() {
                 space.innerHTML += `<div>ctx.lineTo(${canvasArray[i + 2]}, ${canvasArray[i + 3]});</div>`;
                 i += 4;
             }
+            else if (Array.isArray(CA1)) {
+                space.innerHTML += `<div>ctx.moveTo(${CA1[0]}, ${CA1[1]});</div>`;
+                space.innerHTML += `<div>ctx.quadraticCurveTo(${CA1[2]}, ${CA1[3]}, ${CA1[4]}, ${CA1[5]});</div>`;
+                i++;
+            }
             else {
-                if (!(int(CA1) || int(CA2))) {
+                if (!(int(CA1) || int(CA2)) && !Array.isArray(CA2)) {
                     space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`;
                     space.innerHTML += `<div>ctx.lineWidth = '${CA2}';</div>`;
                     i += 2;
@@ -191,6 +213,36 @@ function drawGrid() {
     ;
 }
 ;
+function calcCurve() {
+    const curveX = document.querySelector('.curveX');
+    const curveY = document.querySelector('.curveY');
+    const CA1 = canvasArray[canvasArray.length - 1];
+    let newArray = [];
+    if (canvasArray.length !== 0) {
+        if (int(CA1)) {
+            for (let i = 0; i < 4; i++) {
+                newArray.push(canvasArray.pop());
+            }
+            ;
+            num = num - 3;
+            newArray.reverse();
+        }
+        ;
+        if (Array.isArray(CA1)) {
+            for (let i = 0; i < 4; i++) {
+                newArray.push(CA1[i]);
+            }
+            ;
+            canvasArray.pop();
+        }
+        ;
+        newArray.push((canvas.width / 100) * +(curveX.value));
+        newArray.push((canvas.height / 100) * +(curveY.value));
+        canvasArray.push(newArray);
+    }
+    ;
+}
+;
 resize('def');
 drawGrid();
 if (localCanvas !== null) {
@@ -207,6 +259,7 @@ window.addEventListener('resize', (e) => {
     else {
         resize('custom', canvasWidth, canvasHeight);
     }
+    clear();
     drawGrid();
     drawLines();
 });
@@ -220,54 +273,52 @@ canvas.addEventListener('contextmenu', (e) => {
     e.preventDefault();
 });
 canvas.addEventListener('pointerdown', (e) => {
-    const localStroke = document.querySelector('.stroke-width').value || 1;
-    if (localStroke !== '0') {
-        const localColor = document.querySelector('.color').value;
-        if (localColor !== color) {
-            color = localColor;
-            num++;
-            canvasArray[num] = color;
-        }
-        if (localStroke !== stroke) {
-            stroke = localStroke;
-            num++;
-            canvasArray[num] = stroke;
-        }
-        x = Math.round(e.offsetX);
-        y = Math.round(e.offsetY);
-        num++;
-        canvasArray[num] = x;
-        num++;
-        canvasArray[num] = y;
-        canvas.addEventListener('pointermove', previewLineHandler);
+    const localStroke = document.querySelector('.stroke-width').value;
+    const localColor = document.querySelector('.color').value;
+    cycleID++;
+    if ((document.getElementById(`${cycleID}`)) === null) {
+        curveInputContainer.id = `${cycleID}`;
+        curveInputContainer.innerHTML = `<div class="m-1 text-center">Set curvature of line on X and Y axes 👇</div><div class="d-flex justify-content-center">X (%):<input class="form-range w-25 curveX"type=range value=0><span class=curveXupdate>0</span></div><div class="d-flex justify-content-center mb-2">Y (%):<input class="form-range w-25 curveY"type=range value=0><span class=curveYupdate>50</span></div>`;
     }
-    else {
+    if (localColor !== color) {
+        color = localColor;
+        num++;
+        canvasArray[num] = color;
+    }
+    if (localStroke && localStroke !== stroke) {
         stroke = localStroke;
+        num++;
+        canvasArray[num] = stroke;
     }
+    x = Math.round(e.offsetX);
+    y = Math.round(e.offsetY);
+    num++;
+    canvasArray[num] = x;
+    num++;
+    canvasArray[num] = y;
+    canvas.addEventListener('pointermove', previewLineHandler);
 });
 canvas.addEventListener('pointerup', (e) => {
-    if (stroke !== 0) {
-        let a = Math.round(e.offsetX);
-        let b = Math.round(e.offsetY);
-        clear();
-        drawGrid();
-        drawLines();
-        canvas.removeEventListener('pointermove', previewLineHandler);
-        num++;
-        canvasArray[num] = a;
-        num++;
-        canvasArray[num] = b;
-        if (ctx) {
-            ctx.beginPath();
-            ctx.strokeStyle = color;
-            ctx.lineWidth = +stroke;
-            ctx.moveTo(x, y);
-            ctx.lineTo(a, b);
-            ctx.stroke();
-            setArray();
-        }
-        ;
+    let a = Math.round(e.offsetX);
+    let b = Math.round(e.offsetY);
+    clear();
+    drawGrid();
+    drawLines();
+    canvas.removeEventListener('pointermove', previewLineHandler);
+    num++;
+    canvasArray[num] = a;
+    num++;
+    canvasArray[num] = b;
+    if (ctx) {
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = +stroke;
+        ctx.moveTo(x, y);
+        ctx.lineTo(a, b);
+        ctx.stroke();
     }
+    ;
+    setArray();
 });
 redo === null || redo === void 0 ? void 0 : redo.addEventListener('click', () => {
     clear();
@@ -283,10 +334,13 @@ reset === null || reset === void 0 ? void 0 : reset.addEventListener('click', ()
     clear();
     drawGrid();
     canvasArray = [];
+    cycleID = -1;
     num = -1;
     localStorage.removeItem('canvasArray');
-    stroke = 1;
+    stroke = '1';
     color = '#000000';
+    curveInputContainer.id = `${cycleID}`;
+    curveInputContainer.innerHTML = `<div class="text-center m-1">Set curvature of line on X and Y axes 👇</div> <div class="d-flex justify-content-center"> X (%):<input type="range" class="form-range w-25 curveX" value="0"><span class="curveXupdate">0</span> </div> <div class="d-flex justify-content-center mb-2"> Y (%):<input type="range" value="0" class="form-range w-25 curveY"><span class="curveYupdate">50</span> </div>`;
     setArray();
 });
 set === null || set === void 0 ? void 0 : set.addEventListener('click', () => {
@@ -299,6 +353,9 @@ set === null || set === void 0 ? void 0 : set.addEventListener('click', () => {
 copy === null || copy === void 0 ? void 0 : copy.addEventListener('click', () => {
     copyText();
 });
+save === null || save === void 0 ? void 0 : save.addEventListener('click', () => {
+    localStorage.setItem('canvasArray', JSON.stringify(canvasArray));
+});
 userDesign === null || userDesign === void 0 ? void 0 : userDesign.addEventListener('click', () => {
     clear();
     canvasArray = JSON.parse(document.querySelector('.design').value);
@@ -306,6 +363,21 @@ userDesign === null || userDesign === void 0 ? void 0 : userDesign.addEventListe
     drawLines();
     setArray();
 });
-save === null || save === void 0 ? void 0 : save.addEventListener('click', () => {
-    localStorage.setItem('canvasArray', JSON.stringify(canvasArray));
+curveInputContainer.addEventListener('input', (e) => {
+    const target = e.target;
+    const userPercent = target.value;
+    if (target.classList.contains('curveX')) {
+        const curveXupdate = document.querySelector('.curveXupdate');
+        curveXupdate.innerHTML = userPercent;
+    }
+    else {
+        const curveYupdate = document.querySelector('.curveYupdate');
+        curveYupdate.innerHTML = userPercent;
+    }
+    ;
+    clear();
+    drawGrid();
+    calcCurve();
+    drawLines();
+    setArray();
 });
