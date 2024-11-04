@@ -151,6 +151,11 @@ footer {
     border-radius: 0.5rem;
   }
 
+  & input[type="range"] {
+    width: calc(100% - 3rem);
+    margin: 0 0.5rem;
+  }
+
   .title {
     border-bottom: 1px solid #cfcfcf;
     padding: 0.5rem 0.7rem;
@@ -167,6 +172,14 @@ footer {
     & button {
       background-color: #007bff;
       width: 100%;
+    }
+
+    & > div {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      white-space: nowrap;
     }
   }
 }
