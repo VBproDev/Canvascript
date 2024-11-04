@@ -1,126 +1,142 @@
 body {
-    background-color: #feffff;
-    color: #222222;
+  background-color: #feffff;
+  color: #222222;
 }
 
 .canvas {
-    border: 0.05rem solid #aaaaaa;
-    touch-action: none;
+  border: 0.05rem solid #aaaaaa;
+  touch-action: none;
 }
 
 .stroke-width {
-    width: 7%;
-    height: 1.75rem;
+  width: 7%;
+  height: 1.75rem;
 }
 
-.copy-btn, .discord, .github {
-    display: inline-block;
-    width: 2rem;
-    height: 2rem;
+.copy-btn,
+.discord,
+.github {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
 }
 
 .form-control {
-    flex: 1 !important;
+  flex: 1 !important;
 }
 
 .copy {
-    cursor: copy;
+  cursor: copy;
 }
 
 .container {
-    margin-bottom: 2rem !important;
+  margin-bottom: 2rem !important;
 }
 
 .text-muted {
-    margin-top: 1rem !important;
-    margin-bottom: 0.5rem !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.5rem !important;
 }
 
 a {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
 
 .actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  & div {
+    max-width: calc(100% - 2rem);
+    width: 20rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    margin-top: 1rem;
+    gap: 1rem;
+  }
 
-    & div {
-        max-width: calc(100% - 2rem);
-        width: 20rem;
-        display: flex;
-        margin-top: 1rem;
-        gap: 1rem;
-    }
+  .redo {
+    background-color: #ff8c00;
+    color: #ffffff;
+  }
 
-    .redo {
-        background-color: #FF8C00;
-        color: #FFFFFF;
-    }
-    
-    .redo:hover,
-    .redo:focus {
-        background-color: #e67e00;
-    }
-    
-    .reset {
-        background-color: #FF4C4C;
-        color: #FFFFFF;
-    }
-    
-    .reset:hover,
-    .reset:focus {
-        background-color: #e04343;
-    }
-    
-    .save {
-        background-color: #28A745;
-        color: #FFFFFF;
-    }
-    
-    .save:hover,
-    .save:focus {
-        background-color: #218838;
-    }
-    
-    .generate {
-        width: 100%;
-        margin-bottom: 1rem;
-        background-color: #007BFF;
-        color: #FFFFFF;
-    }
-    
-    .generate:hover,
-    .generate:focus {
-        background-color: #0069d9;
-    }
-    
-    button {
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        padding: 0.4rem 0.8rem;
-        transition: 300ms ease;
-    }
+  .redo:hover,
+  .redo:focus {
+    background-color: #e67e00;
+  }
 
-    & button:not(.generate) {
-        flex: 1;
-    }
+  .reset {
+    background-color: #ff4c4c;
+    color: #ffffff;
+  }
+
+  .reset:hover,
+  .reset:focus {
+    background-color: #e04343;
+  }
+
+  .save {
+    background-color: #28a745;
+    color: #ffffff;
+  }
+
+  .save:hover,
+  .save:focus {
+    background-color: #218838;
+  }
+
+  .generate {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: #007bff;
+    color: #ffffff;
+  }
+
+  .generate:hover,
+  .generate:focus {
+    background-color: #0069d9;
+  }
+
+  button {
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0.4rem 0.8rem;
+    transition: 300ms ease;
+  }
+
+  & button:not(.generate) {
+    flex: 1;
+  }
 }
 
 footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    background: #007BFF;
-    margin: 3rem 1rem 1rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: #007bff;
+  margin: 3rem 1rem 1rem 1rem;
+  color: #fff;
+  border-radius: 1rem;
+
+  & a {
     color: #fff;
+  }
+}
+
+.code {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+
+  & pre {
+    background: #222222;
+    padding: 1rem;
     border-radius: 1rem;
-    
-    & a {
-        color: #fff;
-    }
+    color: #fff;
+  }
 }
