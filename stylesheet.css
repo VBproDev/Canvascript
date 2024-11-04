@@ -111,5 +111,16 @@ a {
 }
 
 footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: #007BFF;
+    margin: 3rem 1rem 1rem 1rem;
+    color: #fff;
+    border-radius: 1rem;
     
+    & a {
+        color: #fff;
+    }
 }
