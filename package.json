@@ -1,0 +1,11 @@
+{
+  "name": "canvascript",
+  "version": "1.0.0",
+  "description": "Draw on the canvas, then get the JS script to render it on the HTML canvas. A tool for graphic designers and developers.",
+  "main": "script.js",
+  "author": "",
+  "license": "GNU GENERAL PUBLIC LICENSE",
+  "dependencies": {
+    "typescript": "^5.6.3"
+  }
+}
