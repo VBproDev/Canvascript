@@ -54,12 +54,62 @@ a {
         gap: 1rem;
     }
 
-    & .generate {
+    .redo {
+        background-color: #FF8C00;
+        color: #FFFFFF;
+    }
+    
+    .redo:hover,
+    .redo:focus {
+        background-color: #e67e00;
+    }
+    
+    .reset {
+        background-color: #FF4C4C;
+        color: #FFFFFF;
+    }
+    
+    .reset:hover,
+    .reset:focus {
+        background-color: #e04343;
+    }
+    
+    .save {
+        background-color: #28A745;
+        color: #FFFFFF;
+    }
+    
+    .save:hover,
+    .save:focus {
+        background-color: #218838;
+    }
+    
+    .generate {
         width: 100%;
         margin-bottom: 1rem;
+        background-color: #007BFF;
+        color: #FFFFFF;
+    }
+    
+    .generate:hover,
+    .generate:focus {
+        background-color: #0069d9;
+    }
+    
+    button {
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 0.4rem 0.8rem;
+        transition: 300ms ease;
     }
 
     & button:not(.generate) {
         flex: 1;
     }
+}
+
+footer {
+    
 }
