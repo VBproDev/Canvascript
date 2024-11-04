@@ -13,9 +13,7 @@ body {
   height: 1.75rem;
 }
 
-.copy-btn,
-.discord,
-.github {
+.copy-btn {
   display: inline-block;
   width: 2rem;
   height: 2rem;
@@ -58,7 +56,6 @@ a {
 
   .redo {
     background-color: #ff8c00;
-    color: #ffffff;
   }
 
   .redo:hover,
@@ -68,7 +65,6 @@ a {
 
   .reset {
     background-color: #ff4c4c;
-    color: #ffffff;
   }
 
   .reset:hover,
@@ -78,7 +74,6 @@ a {
 
   .save {
     background-color: #28a745;
-    color: #ffffff;
   }
 
   .save:hover,
@@ -89,26 +84,29 @@ a {
   .generate {
     width: 100%;
     margin-bottom: 1rem;
-    background-color: #007bff;
-    color: #ffffff;
-  }
-
-  .generate:hover,
-  .generate:focus {
-    background-color: #0069d9;
-  }
-
-  button {
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 0.4rem 0.8rem;
-    transition: 300ms ease;
   }
 
   & button:not(.generate) {
     flex: 1;
+  }
+}
+
+button {
+  border: none;
+  border-radius: 0.5rem !important;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0.4rem 0.8rem;
+  transition: 300ms ease;
+  color: #fff;
+
+  &.primary {
+    background-color: #007bff;
+  }
+
+  &.primary:hover,
+  &.primary:focus {
+    background-color: #0069d9;
   }
 }
 
@@ -138,5 +136,37 @@ footer {
     padding: 1rem;
     border-radius: 1rem;
     color: #fff;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  & > div {
+    width: 20rem;
+    max-width: calc(100% - 2rem);
+    border: 1px solid #cfcfcf;
+    border-radius: 0.5rem;
+  }
+
+  .title {
+    border-bottom: 1px solid #cfcfcf;
+    padding: 0.5rem 0.7rem;
+  }
+
+  .content {
+    padding: 0.8rem 0.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+
+    & button {
+      background-color: #007bff;
+      width: 100%;
+    }
   }
 }
