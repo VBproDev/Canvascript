@@ -19,7 +19,7 @@
 <img src="assets/CanvaScript.png" alt="Canvascript logo" itemprop="image">
 
 <h1 itemprop="headline">About this</h1>
-<p itemprop="text">Draw on the canvas, then get the JS script to render it on the HTML canvas. A tool for graphic designers and developers.</p>
+<p itemprop="text">Draw on the canvas, then get the JS script to render it on the HTML canvas. You can now draw and get code to render curved lines too. A tool for graphic designers and developers.</p>
 
 <p>We have a Discord server btw <a href="https://discord.gg/ZXMEkzfZXx" target="_blank" itemprop="sameAs">https://discord.gg/ZXMEkzfZXx</a></p>
 
