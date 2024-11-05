@@ -122,6 +122,7 @@ button {
 footer {
   display: flex;
   justify-content: center;
+  text-align: center;
   align-items: center;
   padding: 2rem;
   background: #1081f9;
@@ -196,6 +197,10 @@ footer {
       white-space: nowrap;
     }
   }
+}
+
+canvas {
+  max-width: 100dvw;
 }
 
 .design_code {
