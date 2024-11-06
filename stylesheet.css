@@ -6,6 +6,7 @@ body {
 .canvas {
   border: 0.05rem solid #aaaaaa;
   touch-action: none;
+  max-width: 100dvw;
 }
 
 .stroke-width {
@@ -13,7 +14,9 @@ body {
   height: 1.75rem;
 }
 
-.copy-btn {
+.copy-btn,
+.discord,
+.github {
   display: inline-block;
   width: 2rem;
   height: 2rem;
@@ -28,7 +31,49 @@ body {
 }
 
 .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 2rem !important;
+}
+
+.container > div {
+  width: 20rem;
+  max-width: calc(100% - 2rem);
+  border: 1px solid #cfcfcf;
+  border-radius: 0.5rem;
+}
+
+.container input[type="range"] {
+  width: calc(100% - 3rem);
+  margin: 0 0.5rem;
+}
+
+.container .title {
+  border-bottom: 1px solid #cfcfcf;
+  padding: 0.5rem 0.7rem;
+}
+
+.container .content {
+  padding: 0.8rem 0.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.container .content button {
+  background-color: #007bff;
+  width: 100%;
+}
+
+.container .content > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
 }
 
 .text-muted {
@@ -45,50 +90,50 @@ a {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
 
-  & div {
-    max-width: calc(100% - 2rem);
-    width: 20rem;
-    display: flex;
-    margin-top: 1rem;
-    gap: 1rem;
-  }
+.actions div {
+  max-width: calc(100% - 2rem);
+  width: 20rem;
+  display: flex;
+  margin-top: 1rem;
+  gap: 1rem;
+}
 
-  .redo {
-    background-color: #ff8c00;
-  }
+.actions button:not(.generate) {
+  flex: 1;
+}
 
-  .redo:hover,
-  .redo:focus {
-    background-color: #e67e00;
-  }
+.actions .generate {
+  width: 100%;
+  margin-bottom: 1rem;
+}
 
-  .reset {
-    background-color: #ff4c4c;
-  }
+.actions .redo {
+  background-color: #ff8c00;
+}
 
-  .reset:hover,
-  .reset:focus {
-    background-color: #e04343;
-  }
+.actions .redo:hover,
+.actions .redo:focus {
+  background-color: #e67e00;
+}
 
-  .save {
-    background-color: #28a745;
-  }
+.actions .reset {
+  background-color: #ff4c4c;
+}
 
-  .save:hover,
-  .save:focus {
-    background-color: #218838;
-  }
+.actions .reset:hover,
+.actions .reset:focus {
+  background-color: #e04343;
+}
 
-  .generate {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
+.actions .save {
+  background-color: #28a745;
+}
 
-  & button:not(.generate) {
-    flex: 1;
-  }
+.actions .save:hover,
+.actions .save:focus {
+  background-color: #218838;
 }
 
 button {
@@ -99,24 +144,24 @@ button {
   padding: 0.4rem 0.8rem;
   transition: 300ms ease;
   color: #fff;
+}
 
-  &.primary {
-    background-color: #007bff;
-  }
+button.primary {
+  background-color: #007bff;
+}
 
-  &.primary:hover,
-  &.primary:focus {
-    background-color: #0069d9;
-  }
+button.primary:hover,
+button.primary:focus {
+  background-color: #0069d9;
+}
 
-  &.success {
-    background-color: #28a745;
-  }
+button.success {
+  background-color: #28a745;
+}
 
-  &.success:hover,
-  &.success:focus {
-    background-color: #218838;
-  }
+button.success:hover,
+button.success:focus {
+  background-color: #218838;
 }
 
 footer {
@@ -129,15 +174,15 @@ footer {
   margin: 3rem 1rem 1rem 1rem;
   color: #fff;
   border-radius: 1rem;
+}
 
-  & a {
-    color: #fff;
-    transition: 300ms ease;
+footer a {
+  color: #fff;
+  transition: 300ms ease;
+}
 
-    &:hover {
-      text-decoration: underline !important;
-    }
-  }
+footer a:hover {
+  text-decoration: underline !important;
 }
 
 .code {
@@ -145,138 +190,48 @@ footer {
   justify-content: center;
   align-items: center;
   display: none;
-
-  & pre {
-    background: #222222;
-    padding: 1rem;
-    border-radius: 1rem;
-    color: #fff;
-  }
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &>div {
-    width: 20rem;
-    max-width: calc(100% - 2rem);
-    border: 1px solid #cfcfcf;
-    border-radius: 0.5rem;
-  }
-
-  & input[type="range"] {
-    width: calc(100% - 3rem);
-    margin: 0 0.5rem;
-  }
-
-  .title {
-    border-bottom: 1px solid #cfcfcf;
-    padding: 0.5rem 0.7rem;
-  }
-
-  .content {
-    padding: 0.8rem 0.7rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 1rem;
-
-    & button {
-      background-color: #007bff;
-      width: 100%;
-    }
-
-    &>div {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      white-space: nowrap;
-    }
-  }
-}
-
-canvas {
-  max-width: 100dvw;
+.code pre {
+  background: #222222;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: #fff;
 }
 
 .design_code {
   display: flex;
   justify-content: center;
   align-items: center;
+}
 
-  &>div {
-    width: 20rem;
-    max-width: calc(100% - 2rem);
+.design_code > div {
+  width: 20rem;
+  max-width: calc(100% - 2rem);
+}
 
-    & input {
-      margin-bottom: 1rem;
-    }
+.design_code input {
+  margin-bottom: 1rem;
+}
 
-    & button {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
+.design_code button {
+  width: 100%;
+  margin-bottom: 1rem;
+}
 
-    & p {
-      font-size: 14px;
-      opacity: 0.7;
-      text-align: center;
-    }
-  }
+.design_code p {
+  font-size: 14px;
+  opacity: 0.7;
+  text-align: center;
 }
 
 .use_design {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  & button {
-    max-width: calc(100% - 2rem);
-    width: 20rem;
-  }
-=======
-body {
-    background-color: #feffff;
-    color: #222222;
 }
 
-.canvas {
-    border: 0.05rem solid #aaaaaa;
-    touch-action: none;
-}
-
-.stroke-width {
-    width: 7%;
-    height: 1.75rem;
-}
-
-.copy-btn, .discord, .github {
-    display: inline-block;
-    width: 2rem;
-    height: 2rem;
-}
-
-.form-control {
-    flex: 1 !important;
-}
-
-.copy {
-    cursor: copy;
-}
-
-.container {
-    margin-bottom: 2rem !important;
-}
-
-.text-muted {
-    margin-top: 1rem !important;
-    margin-bottom: 0.5rem !important;
-}
-
-a {
-    text-decoration: none !important;
+.use_design button {
+  max-width: calc(100% - 2rem);
+  width: 20rem;
 }
