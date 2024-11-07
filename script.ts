@@ -27,7 +27,6 @@ let y: number;
 let num = -1;
 let canvasArray: (number | string | number[])[] = [];
 let warnedUser = false;
-let cycleID = -1;
 
 function previewLine(event: MouseEvent | PointerEvent) {
     const atX = event.offsetX;
@@ -284,12 +283,6 @@ canvas.addEventListener('contextmenu', (e) => {
 canvas.addEventListener('pointerdown', (e) => {
     const localStroke = (document.querySelector('.stroke-width') as HTMLInputElement).value;
     const localColor = (document.querySelector('.color') as HTMLInputElement).value;
-    cycleID++;
-
-    if ((document.getElementById(`${cycleID}`)) === null) {
-        curveInputContainer.id = `${cycleID}`;
-        curveInputContainer.innerHTML = `<div class="m-1 text-center">Set curvature of line on X and Y axes 👇</div><div class="d-flex justify-content-center">X (%):<input class="form-range w-25 curveX"type=range value=0><span class=curveXupdate>0</span></div><div class="d-flex justify-content-center mb-2">Y (%):<input class="form-range w-25 curveY"type=range value=0><span class=curveYupdate>50</span></div>`;
-    }
 
     if (localColor !== color) {
         color = localColor;
@@ -356,13 +349,10 @@ reset?.addEventListener('click', () => {
     clear();
     drawGrid();
     canvasArray = [];
-    cycleID = -1;
     num = -1;
     localStorage.removeItem('canvasArray');
     stroke = '1';
     color = '#000000';
-    curveInputContainer.id = `${cycleID}`;
-    curveInputContainer.innerHTML = `<div class="text-center m-1">Set curvature of line on X and Y axes 👇</div> <div class="d-flex justify-content-center"> X (%):<input type="range" class="form-range w-25 curveX" value="0"><span class="curveXupdate">0</span> </div> <div class="d-flex justify-content-center mb-2"> Y (%):<input type="range" value="0" class="form-range w-25 curveY"><span class="curveYupdate">50</span> </div>`;
     setArray();
 });
 
