@@ -2,7 +2,7 @@
 const canvas = document.querySelector('.canvas');
 const reset = document.querySelector('.reset');
 const generate = document.querySelector('.generate');
-const redo = document.querySelector('.redo');
+const undo = document.querySelector('.undo');
 const set = document.querySelector('.setBtn');
 const ctx = canvas.getContext('2d');
 const copy = document.querySelector('.copy');
@@ -56,7 +56,7 @@ function setArray() {
     }
     ;
 }
-function redoFunc() {
+function undoFunc() {
     const CA1 = canvasArray[canvasArray.length - 1];
     if (int(CA1)) {
         for (let i = 0; i < 4; i++) {
@@ -314,9 +314,9 @@ canvas.addEventListener('pointerup', (e) => {
     ;
     setArray();
 });
-redo === null || redo === void 0 ? void 0 : redo.addEventListener('click', () => {
+undo === null || undo === void 0 ? void 0 : undo.addEventListener('click', () => {
     clear();
-    redoFunc();
+    undoFunc();
     drawGrid();
     drawLines();
     setArray();

@@ -109,12 +109,12 @@ a {
   margin-bottom: 1rem;
 }
 
-.actions .redo {
+.actions .undo {
   background-color: #ff8c00;
 }
 
-.actions .redo:hover,
-.actions .redo:focus {
+.actions .undo:hover,
+.actions .undo:focus {
   background-color: #e67e00;
 }
 
