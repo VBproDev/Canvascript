@@ -5,7 +5,6 @@ const generate = document.querySelector('.generate');
 const undo = document.querySelector('.undo');
 const set = document.querySelector('.setBtn');
 const ctx = canvas.getContext('2d');
-const copy = document.querySelector('.copy');
 const design = document.querySelector('.design');
 const userDesign = document.querySelector('.user-design');
 const save = document.querySelector('.save');
@@ -42,11 +41,6 @@ function previewLine(event) {
 function int(n) {
     return typeof n === 'number';
 }
-function copyText() {
-    design.select();
-    design.setSelectionRange(0, 99999999);
-    navigator.clipboard.writeText(JSON.stringify(canvasArray));
-}
 function setArray() {
     if (canvasArray.length === 0) {
         design.value = '[ ]';
@@ -55,6 +49,7 @@ function setArray() {
         design.value = JSON.stringify(canvasArray);
     }
     ;
+    design.select();
 }
 function undoFunc() {
     const CA1 = canvasArray[canvasArray.length - 1];
@@ -340,9 +335,6 @@ set === null || set === void 0 ? void 0 : set.addEventListener('click', () => {
     resize('custom', canvasWidth, canvasHeight);
     drawGrid();
     drawLines();
-});
-copy === null || copy === void 0 ? void 0 : copy.addEventListener('click', () => {
-    copyText();
 });
 save === null || save === void 0 ? void 0 : save.addEventListener('click', () => {
     localStorage.setItem('canvasArray', JSON.stringify(canvasArray));

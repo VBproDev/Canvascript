@@ -4,7 +4,6 @@ const generate = document.querySelector('.generate');
 const undo = document.querySelector('.undo');
 const set = document.querySelector('.setBtn');
 const ctx = canvas.getContext('2d');
-const copy = document.querySelector('.copy');
 const design = document.querySelector('.design') as HTMLInputElement;
 const userDesign = document.querySelector('.user-design');
 const save = document.querySelector('.save');
@@ -46,18 +45,13 @@ function int(n: number | string | number[]): boolean {
     return typeof n === 'number';
 }
 
-function copyText() {
-    design.select();
-    design.setSelectionRange(0, 99999999);
-    navigator.clipboard.writeText(JSON.stringify(canvasArray));
-}
-
 function setArray() {
     if (canvasArray.length === 0) {
         design.value = '[ ]'
     } else {
         design.value = JSON.stringify(canvasArray);
     };
+    design.select();
 }
 
 function undoFunc() {
@@ -362,10 +356,6 @@ set?.addEventListener('click', () => {
     resize('custom', canvasWidth, canvasHeight);
     drawGrid();
     drawLines();
-});
-
-copy?.addEventListener('click', () => {
-    copyText();
 });
 
 save?.addEventListener('click', () => {
