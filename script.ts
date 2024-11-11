@@ -7,6 +7,7 @@ const ctx = canvas.getContext('2d');
 const design = document.querySelector('.design') as HTMLInputElement;
 const userDesign = document.querySelector('.user-design');
 const save = document.querySelector('.save');
+const popup_saved= document.querySelector('.popup_saved') as HTMLDivElement;
 const curveInputContainer = document.querySelector('.curve-input-container')!;
 const localCanvas = localStorage.getItem('canvasArray');
 
@@ -360,6 +361,13 @@ set?.addEventListener('click', () => {
 
 save?.addEventListener('click', () => {
     localStorage.setItem('canvasArray', JSON.stringify(canvasArray));
+
+    if (popup_saved) {
+        popup_saved.classList.add('show');
+        setTimeout(() => {
+            popup_saved.classList.remove('show');
+        }, 2000);
+    }
 });
 
 userDesign?.addEventListener('click', () => {
