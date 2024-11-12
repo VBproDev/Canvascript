@@ -85,6 +85,22 @@ a {
   text-decoration: none !important;
 }
 
+.popup_saved {
+  display: none;
+  z-index: 2;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+
+.popup_saved.show {
+  display: flex !important;
+  opacity: 0.75;
+}
+
+.transition-opacity {
+  transition: opacity 0.3s ease-in-out;
+}
+
 .actions {
   display: flex;
   justify-content: center;

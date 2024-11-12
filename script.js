@@ -8,7 +8,9 @@ const ctx = canvas.getContext('2d');
 const design = document.querySelector('.design');
 const userDesign = document.querySelector('.user-design');
 const save = document.querySelector('.save');
+const popup_saved = document.querySelector('.popup_saved');
 const curveInputContainer = document.querySelector('.curve-input-container');
+const btnClose = document.querySelector('.btn-close');
 const localCanvas = localStorage.getItem('canvasArray');
 const previewLineHandler = (e) => {
     clear();
@@ -339,6 +341,15 @@ set === null || set === void 0 ? void 0 : set.addEventListener('click', () => {
 });
 save === null || save === void 0 ? void 0 : save.addEventListener('click', () => {
     localStorage.setItem('canvasArray', JSON.stringify(canvasArray));
+    num = num + canvasArray.length;
+    popup_saved.classList.add('show');
+    btnClose === null || btnClose === void 0 ? void 0 : btnClose.addEventListener('click', () => {
+        clearTimeout(saveTimer);
+        popup_saved.classList.remove('show');
+    });
+    const saveTimer = setTimeout(() => {
+        popup_saved.classList.remove('show');
+    }, 2300);
 });
 userDesign === null || userDesign === void 0 ? void 0 : userDesign.addEventListener('click', () => {
     clear();
