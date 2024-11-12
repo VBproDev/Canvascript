@@ -340,6 +340,7 @@ set === null || set === void 0 ? void 0 : set.addEventListener('click', () => {
 });
 save === null || save === void 0 ? void 0 : save.addEventListener('click', () => {
     localStorage.setItem('canvasArray', JSON.stringify(canvasArray));
+    num = num + canvasArray.length;
     popup_saved.classList.add('show');
     btnClose === null || btnClose === void 0 ? void 0 : btnClose.addEventListener('click', () => {
         clearTimeout(saveTimer);

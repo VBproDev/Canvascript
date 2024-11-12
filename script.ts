@@ -362,6 +362,7 @@ set?.addEventListener('click', () => {
 
 save?.addEventListener('click', () => {
     localStorage.setItem('canvasArray', JSON.stringify(canvasArray));
+    num = num + canvasArray.length;
     popup_saved.classList.add('show');
 
     btnClose?.addEventListener('click', () => {
