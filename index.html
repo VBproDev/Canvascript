@@ -61,6 +61,13 @@
 </head>
 
 <body>
+  <div class="d-flex justify-content-center">
+    <div class="popup_saved d-flex align-items-center bg-success text-white rounded-pill py-2 px-4 position-fixed top-0 mt-3 transition-opacity">
+      <span>Design has been saved</span>
+      <button class="btn-close btn-close-white ms-2" aria-label="Close"></button>
+    </div>
+  </div>
+
   <div class="d-flex justify-content-center p-2">
     <h4 class="me-1">Line Color:</h4>
     <input class="color me-3" type="color" />
@@ -73,8 +80,6 @@
     <canvas class="canvas"></canvas>
   </div>
 
-  <div class="popup_saved">Design has been saved</div>
-  
   <div class="actions">
     <div>
       <button class="undo">Undo</button>

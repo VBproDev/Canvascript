@@ -7,8 +7,9 @@ const ctx = canvas.getContext('2d');
 const design = document.querySelector('.design') as HTMLInputElement;
 const userDesign = document.querySelector('.user-design');
 const save = document.querySelector('.save');
-const popup_saved= document.querySelector('.popup_saved') as HTMLDivElement;
+const popup_saved = document.querySelector('.popup_saved') as HTMLDivElement;
 const curveInputContainer = document.querySelector('.curve-input-container')!;
+const btnClose = document.querySelector('.btn-close');
 const localCanvas = localStorage.getItem('canvasArray');
 
 const previewLineHandler = (e: MouseEvent | PointerEvent) => {
@@ -361,13 +362,16 @@ set?.addEventListener('click', () => {
 
 save?.addEventListener('click', () => {
     localStorage.setItem('canvasArray', JSON.stringify(canvasArray));
+    popup_saved.classList.add('show');
 
-    if (popup_saved) {
-        popup_saved.classList.add('show');
-        setTimeout(() => {
-            popup_saved.classList.remove('show');
-        }, 2000);
-    }
+    btnClose?.addEventListener('click', () => {
+        clearTimeout(saveTimer);
+        popup_saved.classList.remove('show');
+    })
+
+    const saveTimer = setTimeout(() => {
+        popup_saved.classList.remove('show');
+    }, 2300);
 });
 
 userDesign?.addEventListener('click', () => {

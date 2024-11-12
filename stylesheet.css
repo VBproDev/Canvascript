@@ -85,22 +85,20 @@ a {
   text-decoration: none !important;
 }
 
-div.popup_saved {
+.popup_saved {
   display: none;
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: green;
-  color: white;
-  border-radius: 5px;
-  font-size: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+  z-index: 2;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
 }
 
-div.popup_saved.show {
-  display: block;
+.popup_saved.show {
+  display: flex !important;
+  opacity: 0.75;
+}
+
+.transition-opacity {
+  transition: opacity 0.3s ease-in-out;
 }
 
 .actions {
