@@ -7,11 +7,13 @@
     <meta name="description" content="Draw with your pointer on the HTML canvas, then get the code to render it." itemprop="description">
     <meta name="keywords" content="draw, mouse, pointer, html, canvas, code, render" itemprop="keywords">
     <meta name="author" content="Viraj Bijpuria" itemprop="author">
-    <meta property="og:title" content="Canvascript - Design for the canvas" itemprop="name">
+    <meta property="og:title" content="Draw on the HTML canvas without code" itemprop="name">
     <meta property="og:description" content="Draw with your pointer on the HTML canvas, then get the code to render it." itemprop="description">
     <meta property="og:image" content="https://vbprodev.github.io/Canvascript/CanvaScript.png" itemprop="image">
     <meta property="og:url" content="https://vbprodev.github.io/Canvascript/" itemprop="url">
     <meta property="og:type" content="website">
+
+    <title>Canvascript - Draw on the HTML canvas without code</title>
 </head>
 
 <body>
