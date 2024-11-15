@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Draw on the canvas, then get the JS script to render it on the HTML canvas" itemprop="description">
-    <meta name="keywords" content="draw, canvas, js, script, render, design, html, code, canvascript, graphic" itemprop="keywords">
+    <meta name="description" content="Draw with your pointer on the HTML canvas, then get the code to render it." itemprop="description">
+    <meta name="keywords" content="draw, mouse, pointer, html, canvas, code, render" itemprop="keywords">
     <meta name="author" content="Viraj Bijpuria" itemprop="author">
     <meta property="og:title" content="Canvascript - Design for the canvas" itemprop="name">
-    <meta property="og:description" content="Draw on the canvas, then get the js script to render it on the HTML canvas. A tool for graphic designers and developers." itemprop="description">
+    <meta property="og:description" content="Draw with your pointer on the HTML canvas, then get the code to render it." itemprop="description">
     <meta property="og:image" content="https://vbprodev.github.io/Canvascript/CanvaScript.png" itemprop="image">
     <meta property="og:url" content="https://vbprodev.github.io/Canvascript/" itemprop="url">
     <meta property="og:type" content="website">
