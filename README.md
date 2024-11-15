@@ -12,8 +12,6 @@
     <meta property="og:image" content="https://vbprodev.github.io/Canvascript/CanvaScript.png" itemprop="image">
     <meta property="og:url" content="https://vbprodev.github.io/Canvascript/" itemprop="url">
     <meta property="og:type" content="website">
-
-    <title>Canvascript - Draw on the HTML canvas without code</title>
 </head>
 
 <body>
