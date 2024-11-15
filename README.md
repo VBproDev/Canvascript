@@ -21,7 +21,7 @@
 <h1 itemprop="headline">About this</h1>
 <p itemprop="text">Create HTML canvas graphics without writing code. Just draw with your pointer on the HTML canvas, then get the code to render it. You can now draw curved lines too. A no-code tool for web game devs crafting mobile-friendly high-performance graphics, effortlessly.</p>
 
-<p>We have a Discord server btw <a href="https://discord.gg/ZXMEkzfZXx" target="_blank" itemprop="sameAs">https://discord.gg/ZXMEkzfZXx</a></p>
+<p>We also have a <a href="https://discord.gg/ZXMEkzfZXx" target="_blank" itemprop="sameAs">Discord server</a> btw</p>
 
 <h1 itemprop="headline">How to use?</h1>
 <p itemprop="softwareHelp">It's a web tool hosted on GitHub Pages, so no need to install anything. Just click on the link in the <b>About</b> section.</p>
