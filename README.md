@@ -24,16 +24,7 @@
 <p>We also have a <a href="https://discord.gg/ZXMEkzfZXx" target="_blank" itemprop="sameAs">Discord server</a> btw</p>
 
 <h1 itemprop="headline">How to use?</h1>
-<p itemprop="softwareHelp">It's a web tool hosted on GitHub Pages, so no need to install anything. Just click on the link in the <b>About</b> section.</p>
-
-<h1 itemprop="headline">Edge cases</h1>
-
-<h2 itemprop="headline">Active issues</h2>
-<i>None currently</i>
-
-<h2 itemprop="headline">Archived</h2>
-<p><a href="https://github.com/VBproDev/Canvascript/issues/8" target="_blank" itemprop="issueTracker">#8</a> Resolved <a href="https://github.com/VBproDev/Canvascript/pull/9" target="_blank">here</a></p>
-<p><a href="https://github.com/VBproDev/Canvascript/issues/12" target="_blank" itemprop="issueTracker">#12</a> Resolved <a href="https://github.com/VBproDev/Canvascript/pull/15" target="_blank">here</a></p>
+<p itemprop="softwareHelp">It's a web tool hosted on GitHub Pages, so no need to install anything. Just click on the link in the <b>About</b> section (top in mobile, right in desktop).</p>
 
 </body>
 </html>
