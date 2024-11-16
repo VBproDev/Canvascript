@@ -243,7 +243,7 @@ resize('def');
 drawGrid();
 if (localCanvas !== null) {
     canvasArray = JSON.parse(localCanvas);
-    num = num + canvasArray.length;
+    num += canvasArray.length;
     drawLines();
 }
 setArray();
