@@ -10,6 +10,7 @@ const save = document.querySelector('.save');
 const popup_saved = document.querySelector('.popup_saved') as HTMLDivElement;
 const curveInputContainer = document.querySelector('.curve-input-container')!;
 const btnClose = document.querySelector('.btn-close');
+const copyBtn = document.querySelector('.copy');
 const localCanvas = localStorage.getItem('canvasArray');
 
 const previewLineHandler = (e: MouseEvent | PointerEvent) => {
@@ -53,10 +54,6 @@ function setArray() {
     } else {
         design.value = JSON.stringify(canvasArray);
     };
-    design.focus({
-        preventScroll: true
-    });
-    design.select();
 }
 
 function undoFunc() {
@@ -407,3 +404,7 @@ curveInputContainer.addEventListener('input', (e) => {
     drawLines();
     setArray();
 });
+
+copyBtn?.addEventListener('click', () => {
+    navigator.clipboard.writeText((document.querySelector('.design') as HTMLInputElement).value);
+})

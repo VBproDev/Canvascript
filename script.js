@@ -11,6 +11,7 @@ const save = document.querySelector('.save');
 const popup_saved = document.querySelector('.popup_saved');
 const curveInputContainer = document.querySelector('.curve-input-container');
 const btnClose = document.querySelector('.btn-close');
+const copyBtn = document.querySelector('.copy');
 const localCanvas = localStorage.getItem('canvasArray');
 const previewLineHandler = (e) => {
     clear();
@@ -51,10 +52,6 @@ function setArray() {
         design.value = JSON.stringify(canvasArray);
     }
     ;
-    design.focus({
-        preventScroll: true
-    });
-    design.select();
 }
 function undoFunc() {
     const CA1 = canvasArray[canvasArray.length - 1];
@@ -378,4 +375,7 @@ curveInputContainer.addEventListener('input', (e) => {
     calcCurve();
     drawLines();
     setArray();
+});
+copyBtn === null || copyBtn === void 0 ? void 0 : copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(document.querySelector('.design').value);
 });
