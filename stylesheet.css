@@ -251,7 +251,3 @@ footer a:hover {
   max-width: calc(100% - 2rem);
   width: 20rem;
 }
-
-.design {
-  user-select: all;
-}

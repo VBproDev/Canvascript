@@ -53,6 +53,10 @@ function setArray() {
     } else {
         design.value = JSON.stringify(canvasArray);
     };
+    design.focus({
+        preventScroll: true
+    });
+    design.select();
 }
 
 function undoFunc() {

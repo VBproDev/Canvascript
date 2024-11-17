@@ -51,6 +51,10 @@ function setArray() {
         design.value = JSON.stringify(canvasArray);
     }
     ;
+    design.focus({
+        preventScroll: true
+    });
+    design.select();
 }
 function undoFunc() {
     const CA1 = canvasArray[canvasArray.length - 1];
