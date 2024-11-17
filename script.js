@@ -51,7 +51,6 @@ function setArray() {
         design.value = JSON.stringify(canvasArray);
     }
     ;
-    design.select();
 }
 function undoFunc() {
     const CA1 = canvasArray[canvasArray.length - 1];

@@ -53,7 +53,6 @@ function setArray() {
     } else {
         design.value = JSON.stringify(canvasArray);
     };
-    design.select();
 }
 
 function undoFunc() {
