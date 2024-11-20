@@ -27,5 +27,15 @@
 <h1 itemprop="headline">How to use?</h1>
 <p itemprop="softwareHelp">It's a web tool hosted on GitHub Pages, so no need to install anything. Just click on the link in the <b>About</b> section (top in mobile, right in desktop).</p>
 
+<h1 itemprop="headline">Features</h1>
+<ul itemprop="additionalProperty">
+    <li>Automatic code generation</li>
+    <li>Ability to draw curves and straight lines</li>
+    <li>Share your designs easily</li>
+    <li>Save designs</li>
+    <li>Control width and color of the brush</li>
+    <li>Control/test your designs on custom/multiple resolutions</li>
+</ul>
+
 </body>
 </html>
