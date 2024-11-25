@@ -37,9 +37,6 @@ A no-code tool for web game devs crafting mobile-friendly high-performance graph
 
 <p>We also have a <a href="https://discord.gg/ZXMEkzfZXx" target="_blank" itemprop="sameAs">Discord server</a> btw</p>
 
-<h1 itemprop="headline">How to use?</h1>
-<p itemprop="softwareHelp">It's a web tool hosted on GitHub Pages, so no need to install anything. Just click on the link in the <b>About</b> section (top in mobile, right in desktop).</p>
-
 <h1 itemprop="headline">Features</h1>
 <ul>
     <li itemprop="featureList">Automatic code generation</li>
@@ -48,6 +45,9 @@ A no-code tool for web game devs crafting mobile-friendly high-performance graph
     <li itemprop="featureList">Control the width and color of the brush</li>
     <li itemprop="featureList">Test your graphics on multiple resolutions</li>
 </ul>
+
+<h1 itemprop="headline">How to use?</h1>
+<p itemprop="softwareHelp">It's a web tool hosted on GitHub Pages, so no need to install anything. Just click on the link in the <b>About</b> section (top in mobile, top-right in desktop) and start drawing!</p>
 
 <h1>Love Canvascript?</h1>
 <p>Help us make it even better!</p>
