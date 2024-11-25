@@ -31,7 +31,7 @@
 <img src="assets/CanvaScript.png" alt="Canvascript logo" itemprop="image">
 
 <h1 itemprop="headline">About this</h1>
-<p itemprop="text">Create HTML canvas graphics without writing code. Just draw with your pointer on the HTML canvas, then get the code to render it. You can now draw curved lines too. A no-code tool for web game devs crafting mobile-friendly high-performance graphics, effortlessly.</p>
+<p itemprop="text">Create HTML canvas graphics without writing code. Just draw your graphics, then get the code to render them on the HTML canvas. You can now draw curved lines too. A no-code tool for web game devs crafting mobile-friendly high-performance graphics, effortlessly.</p>
 
 <p>We also have a <a href="https://discord.gg/ZXMEkzfZXx" target="_blank" itemprop="sameAs">Discord server</a> btw</p>
 
