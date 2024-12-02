@@ -3,7 +3,7 @@ name: Minify CSS
 on:
   push:
     paths:
-      - style.css
+      - stylesheet.css
     branches:
       - main
 
@@ -27,14 +27,14 @@ jobs:
       run: mkdir -p min
 
     - name: Minify CSS
-      run: cleancss -o min/style.css style.css
+      run: cleancss -o min/stylesheet.css stylesheet.css
 
     - name: Commit and push changes
       run: |
         git config --global user.name "GitHub Actions Bot"
         git config --global user.email "actions@github.com"
-        git add min/style.css
-        git commit -m "Minify style.css and update min folder"
+        git add min/stylesheet.css
+        git commit -m "Minify stylesheet.css and update min folder"
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
