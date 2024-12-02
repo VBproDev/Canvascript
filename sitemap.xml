@@ -4,7 +4,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-        
+  
   <url>
     <loc>https://vbprodev.github.io/Canvascript/</loc>
     <lastmod>2024-11-14</lastmod>
@@ -16,7 +16,7 @@
       <image:caption>Canvascript - Design for the canvas</image:caption>
     </image:image>
   </url>
-        
+
   <url>
     <loc>https://github.com/vbprodev/Canvascript</loc>
     <lastmod>2024-11-14</lastmod>
