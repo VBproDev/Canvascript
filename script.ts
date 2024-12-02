@@ -407,4 +407,4 @@ curveInputContainer.addEventListener('input', (e) => {
 
 copyBtn?.addEventListener('click', () => {
     navigator.clipboard.writeText((document.querySelector('.design') as HTMLInputElement).value);
-})
+});
