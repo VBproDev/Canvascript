@@ -20,4 +20,3 @@
 <h1>HTML</h1>
 
 * For uniformity's sake, use **Bootstrap** classes as far as possible. That means, don't modify your design to suit Bootstrap, but if some aspect of the design could be replicated by it, then don't use custom CSS for that aspect.
- =======
