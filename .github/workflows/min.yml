@@ -9,7 +9,7 @@ jobs:
   minify-css:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # This allows the bot to write to the repository
+      contents: write
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
