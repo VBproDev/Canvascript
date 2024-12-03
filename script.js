@@ -1,4 +1,3 @@
-"use strict";
 const canvas = document.querySelector('.canvas');
 const reset = document.querySelector('.reset');
 const generate = document.querySelector('.generate');
