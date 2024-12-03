@@ -1,34 +1,28 @@
 name: Minify CSS
-
 on:
   push:
     paths:
       - stylesheet.css
     branches:
       - main
-
 jobs:
   minify-css:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write  # This allows the bot to write to the repository
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '16'
-
     - name: Install clean-css-cli
       run: npm install -g clean-css-cli
-
     - name: Create min directory
       run: mkdir -p min
-
     - name: Minify CSS
       run: cleancss -o min/stylesheet.css stylesheet.css
-
     - name: Commit and push changes
       run: |
         git config --global user.name "GitHub Actions Bot"
