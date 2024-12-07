@@ -1,3 +1,4 @@
+"use strict";
 const canvas = document.querySelector('.canvas');
 const reset = document.querySelector('.reset');
 const generate = document.querySelector('.generate');
@@ -11,12 +12,16 @@ const popup_saved = document.querySelector('.popup_saved');
 const curveInputContainer = document.querySelector('.curve-input-container');
 const btnClose = document.querySelector('.btn-close');
 const copyBtn = document.querySelector('.copy');
+const isFreehand = document.querySelector('.isFreehand');
+const curveY = document.querySelector('.curveY');
+const curveX = document.querySelector('.curveX');
 const localCanvas = localStorage.getItem('canvasArray');
 const previewLineHandler = (e) => {
     clear();
     drawGrid();
     drawLines();
     previewLine(e);
+    setArray();
 };
 let stroke = '1';
 let color = '#000000';
@@ -27,9 +32,10 @@ let y;
 let num = -1;
 let canvasArray = [];
 let warnedUser = false;
-function previewLine(event) {
-    const atX = event.offsetX;
-    const atY = event.offsetY;
+let freeArray = ['freehandArray'];
+function previewLine(e) {
+    const atX = e.offsetX;
+    const atY = e.offsetY;
     if (ctx) {
         ctx.beginPath();
         ctx.strokeStyle = color;
@@ -87,8 +93,21 @@ function drawLines() {
                 i += 4;
             }
             else if (Array.isArray(CA1)) {
-                ctx.moveTo(CA1[0], CA1[1]);
-                ctx.quadraticCurveTo(CA1[2], CA1[3], CA1[4], CA1[5]);
+                let freeCA1 = [...CA1];
+                if (freeCA1[0] === 'freehandArray') {
+                    freeCA1.shift();
+                    ctx.moveTo(+freeCA1[0], +freeCA1[1]);
+                    freeCA1.splice(0, 2);
+                    for (let j = 0; j < freeCA1.length; j += 2) {
+                        ctx.lineTo(+freeCA1[j], +freeCA1[j + 1]);
+                    }
+                    ;
+                }
+                else {
+                    ctx.moveTo(+CA1[0], +CA1[1]);
+                    ctx.quadraticCurveTo(+CA1[2], +CA1[3], +CA1[4], +CA1[5]);
+                }
+                ;
                 i++;
             }
             else {
@@ -141,8 +160,21 @@ function generateCode() {
                 i += 4;
             }
             else if (Array.isArray(CA1)) {
-                space.innerHTML += `<div>ctx.moveTo(${CA1[0]}, ${CA1[1]});</div>`;
-                space.innerHTML += `<div>ctx.quadraticCurveTo(${CA1[2]}, ${CA1[3]}, ${CA1[4]}, ${CA1[5]});</div>`;
+                let freeCA1 = [...CA1];
+                if (freeCA1[0] === 'freehandArray') {
+                    freeCA1.shift();
+                    space.innerHTML += `<div>ctx.moveTo(${+freeCA1[0]}, ${+freeCA1[1]});</div>`;
+                    freeCA1.splice(0, 2);
+                    for (let j = 0; j < freeCA1.length; j += 2) {
+                        space.innerHTML += `<div>ctx.lineTo(${+freeCA1[j]}, ${+freeCA1[j + 1]});</div>`;
+                    }
+                    ;
+                }
+                else {
+                    space.innerHTML += `<div>ctx.moveTo(${CA1[0]}, ${CA1[1]});</div>`;
+                    space.innerHTML += `<div>ctx.quadraticCurveTo(${CA1[2]}, ${CA1[3]}, ${CA1[4]}, ${CA1[5]});</div>`;
+                }
+                ;
                 i++;
             }
             else {
@@ -225,21 +257,115 @@ function calcCurve() {
         ;
         if (Array.isArray(CA1)) {
             for (let i = 0; i < 4; i++) {
-                newArray.push(CA1[i]);
+                newArray.push(+CA1[i]);
             }
             ;
             canvasArray.pop();
         }
         ;
-        newArray.push((canvas.width / 100) * +(curveX.value));
-        newArray.push((canvas.height / 100) * +(curveY.value));
+        newArray.push(Math.round(canvas.width / 100) * +(curveX.value));
+        newArray.push(Math.round(canvas.height / 100) * +(curveY.value));
         canvasArray.push(newArray);
     }
     ;
 }
 ;
+function updateStrokeSettings() {
+    const localStroke = document.querySelector('.stroke-width').value;
+    const localColor = document.querySelector('.color').value;
+    if (localColor !== color) {
+        color = localColor;
+        num++;
+        canvasArray[num] = color;
+    }
+    if (localStroke && localStroke !== stroke) {
+        stroke = localStroke;
+        num++;
+        canvasArray[num] = stroke;
+    }
+}
+;
+function pointerDownHandler(e) {
+    x = Math.round(e.offsetX);
+    y = Math.round(e.offsetY);
+    num++;
+    canvasArray[num] = x;
+    num++;
+    canvasArray[num] = y;
+    canvas.addEventListener('pointermove', previewLineHandler);
+}
+;
+function pointerUpHandler(e) {
+    let a = Math.round(e.offsetX);
+    let b = Math.round(e.offsetY);
+    clear();
+    drawGrid();
+    drawLines();
+    canvas.removeEventListener('pointermove', previewLineHandler);
+    num++;
+    canvasArray[num] = a;
+    num++;
+    canvasArray[num] = b;
+    if (ctx) {
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = +stroke;
+        ctx.moveTo(x, y);
+        ctx.lineTo(a, b);
+        ctx.stroke();
+    }
+    ;
+}
+;
+function freehandPointerDownHandler(e) {
+    freeArray.push(Math.round(e.offsetX));
+    freeArray.push(Math.round(e.offsetY));
+    canvas.addEventListener('pointermove', freehandPointerMoveHandler);
+}
+function freehandPointerMoveHandler(e) {
+    freeArray.push(Math.round(e.offsetX));
+    freeArray.push(Math.round(e.offsetY));
+    if (freeArray.length === 5) {
+        num++;
+        canvasArray[num] = freeArray;
+    }
+    else {
+        canvasArray[num] = freeArray;
+    }
+    ;
+    clear();
+    drawGrid();
+    drawLines();
+    setArray();
+}
+function freehandPointerUpHandler(e) {
+    canvas.removeEventListener('pointermove', freehandPointerMoveHandler);
+    freeArray = ['freehandArray'];
+}
+function isFreehandChecker() {
+    if (isFreehand.checked) {
+        canvas.removeEventListener('pointerdown', pointerDownHandler);
+        canvas.removeEventListener('pointermove', previewLineHandler);
+        canvas.removeEventListener('pointerup', pointerUpHandler);
+        canvas.addEventListener('pointerdown', freehandPointerDownHandler);
+        canvas.addEventListener('pointerup', freehandPointerUpHandler);
+        curveY === null || curveY === void 0 ? void 0 : curveY.setAttribute('disabled', 'disabled');
+        curveX === null || curveX === void 0 ? void 0 : curveX.setAttribute('disabled', 'disabled');
+    }
+    else {
+        canvas.removeEventListener('pointerdown', freehandPointerDownHandler);
+        canvas.removeEventListener('pointermove', freehandPointerMoveHandler);
+        canvas.removeEventListener('pointerup', freehandPointerUpHandler);
+        canvas.addEventListener('pointerdown', pointerDownHandler);
+        canvas.addEventListener('pointerup', pointerUpHandler);
+        curveY === null || curveY === void 0 ? void 0 : curveY.removeAttribute('disabled');
+        curveX === null || curveX === void 0 ? void 0 : curveX.removeAttribute('disabled');
+    }
+    ;
+}
 resize('def');
 drawGrid();
+isFreehandChecker();
 if (localCanvas !== null) {
     canvasArray = JSON.parse(localCanvas);
     num += canvasArray.length;
@@ -268,49 +394,9 @@ window.addEventListener('beforeunload', (e) => {
 canvas.addEventListener('contextmenu', (e) => {
     e.preventDefault();
 });
-canvas.addEventListener('pointerdown', (e) => {
-    const localStroke = document.querySelector('.stroke-width').value;
-    const localColor = document.querySelector('.color').value;
-    if (localColor !== color) {
-        color = localColor;
-        num++;
-        canvasArray[num] = color;
-    }
-    if (localStroke && localStroke !== stroke) {
-        stroke = localStroke;
-        num++;
-        canvasArray[num] = stroke;
-    }
-    x = Math.round(e.offsetX);
-    y = Math.round(e.offsetY);
-    num++;
-    canvasArray[num] = x;
-    num++;
-    canvasArray[num] = y;
-    canvas.addEventListener('pointermove', previewLineHandler);
-});
-canvas.addEventListener('pointerup', (e) => {
-    let a = Math.round(e.offsetX);
-    let b = Math.round(e.offsetY);
-    clear();
-    drawGrid();
-    drawLines();
-    canvas.removeEventListener('pointermove', previewLineHandler);
-    num++;
-    canvasArray[num] = a;
-    num++;
-    canvasArray[num] = b;
-    if (ctx) {
-        ctx.beginPath();
-        ctx.strokeStyle = color;
-        ctx.lineWidth = +stroke;
-        ctx.moveTo(x, y);
-        ctx.lineTo(a, b);
-        ctx.stroke();
-    }
-    ;
-    setArray();
-});
+canvas.addEventListener('pointerdown', updateStrokeSettings);
+canvas.addEventListener('pointerdown', pointerDownHandler);
+canvas.addEventListener('pointerup', pointerUpHandler);
 undo === null || undo === void 0 ? void 0 : undo.addEventListener('click', () => {
     clear();
     undoFunc();
@@ -325,6 +411,7 @@ reset === null || reset === void 0 ? void 0 : reset.addEventListener('click', ()
     clear();
     drawGrid();
     canvasArray = [];
+    freeArray = [];
     num = -1;
     localStorage.removeItem('canvasArray');
     stroke = '1';
@@ -340,7 +427,7 @@ set === null || set === void 0 ? void 0 : set.addEventListener('click', () => {
 });
 save === null || save === void 0 ? void 0 : save.addEventListener('click', () => {
     localStorage.setItem('canvasArray', JSON.stringify(canvasArray));
-    num = num + canvasArray.length;
+    num += canvasArray.length;
     popup_saved.classList.add('show');
     btnClose === null || btnClose === void 0 ? void 0 : btnClose.addEventListener('click', () => {
         clearTimeout(saveTimer);
@@ -358,23 +445,29 @@ userDesign === null || userDesign === void 0 ? void 0 : userDesign.addEventListe
     setArray();
 });
 curveInputContainer.addEventListener('input', (e) => {
-    const target = e.target;
-    const userPercent = target.value;
-    if (target.classList.contains('curveX')) {
-        const curveXupdate = document.querySelector('.curveXupdate');
-        curveXupdate.innerHTML = userPercent;
-    }
-    else {
-        const curveYupdate = document.querySelector('.curveYupdate');
-        curveYupdate.innerHTML = userPercent;
+    if (!isFreehand.checked) {
+        const target = e.target;
+        const userPercent = target.value;
+        if (target.classList.contains('curveX')) {
+            const curveXupdate = document.querySelector('.curveXupdate');
+            curveXupdate.innerHTML = userPercent;
+        }
+        else {
+            const curveYupdate = document.querySelector('.curveYupdate');
+            curveYupdate.innerHTML = userPercent;
+        }
+        ;
+        clear();
+        drawGrid();
+        calcCurve();
+        drawLines();
+        setArray();
     }
     ;
-    clear();
-    drawGrid();
-    calcCurve();
-    drawLines();
-    setArray();
 });
 copyBtn === null || copyBtn === void 0 ? void 0 : copyBtn.addEventListener('click', () => {
     navigator.clipboard.writeText(document.querySelector('.design').value);
+});
+isFreehand === null || isFreehand === void 0 ? void 0 : isFreehand.addEventListener('change', () => {
+    isFreehandChecker();
 });
