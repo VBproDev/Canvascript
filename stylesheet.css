@@ -66,6 +66,10 @@ body {
 .container .content button {
   background-color: #007bff;
   width: 100%;
+
+  &:hover {
+    background: #305dff;
+  }
 }
 
 .container .content > div {
