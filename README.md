@@ -33,7 +33,7 @@
 <h1 itemprop="headline">About this</h1>
 <p itemprop="text">Create HTML canvas graphics without writing code. Just draw your graphics, then get the code to render them on the HTML canvas.
 
-A no-code tool for web game devs crafting mobile-friendly high-performance graphics, effortlessly.</p>
+A no-code tool for web game devs crafting mobile-friendly high-performance graphics, effortlessly. You can now draw freehand too.</p>
 
 <p>We also have a <a href="https://discord.gg/ZXMEkzfZXx" target="_blank" itemprop="sameAs">Discord server</a> btw</p>
 
