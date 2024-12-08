@@ -40,7 +40,7 @@ A no-code tool for web game devs crafting mobile-friendly high-performance graph
 <h1 itemprop="headline">Features</h1>
 <ul>
     <li itemprop="featureList">Automatic code generation</li>
-    <li itemprop="featureList">Draw curves and straight lines</li>
+    <li itemprop="featureList">Draw curved, straight and even freehand lines</li>
     <li itemprop="featureList">Share and save your designs</li>
     <li itemprop="featureList">Control the width and color of the brush</li>
     <li itemprop="featureList">Test your graphics on multiple resolutions</li>
