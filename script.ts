@@ -1,19 +1,19 @@
 const canvas = document.querySelector('.canvas') as HTMLCanvasElement;
-const reset = document.querySelector('.reset');
-const generate = document.querySelector('.generate');
-const undo = document.querySelector('.undo');
-const set = document.querySelector('.setBtn');
-const ctx = canvas.getContext('2d');
+const reset = document.querySelector('.reset')!;
+const generate = document.querySelector('.generate')!;
+const undo = document.querySelector('.undo')!;
+const set = document.querySelector('.setBtn')!;
+const ctx = canvas.getContext('2d')!;
 const design = document.querySelector('.design') as HTMLInputElement;
-const userDesign = document.querySelector('.user-design');
-const save = document.querySelector('.save');
+const userDesign = document.querySelector('.user-design')!;
+const save = document.querySelector('.save')!;
 const popup_saved = document.querySelector('.popup_saved') as HTMLDivElement;
 const curveInputContainer = document.querySelector('.curve-input-container')!;
-const btnClose = document.querySelector('.btn-close');
-const copyBtn = document.querySelector('.copy');
+const btnClose = document.querySelector('.btn-close')!;
+const copyBtn = document.querySelector('.copy')!;
 const isFreehand = document.querySelector('.isFreehand') as HTMLInputElement;
-const curveY = document.querySelector('.curveY');
-const curveX = document.querySelector('.curveX');
+const curveY = document.querySelector('.curveY')!;
+const curveX = document.querySelector('.curveX')!;
 const localCanvas = localStorage.getItem('canvasArray');
 
 const previewLineHandler = (e: PointerEvent) => {
@@ -26,27 +26,28 @@ const previewLineHandler = (e: PointerEvent) => {
 
 let stroke = '1';
 let color = '#000000';
-let canvasWidth: number | HTMLInputElement;
-let canvasHeight: number | HTMLInputElement;
+let canvasWidth: canvasOutput;
+let canvasHeight: canvasOutput;
 let x: number;
 let y: number;
 let num = -1;
-let canvasArray: (number | string | number[] | (string | number)[])[] = [];
+let canvasArray: (number | string | number[] | array)[] = [];
 let warnedUser = false;
-let freeArray: (number | string)[] = ['freehandArray'];
+let freeArray: array = ['freehandArray'];
+
+type array = (number| string)[];
+type canvasOutput = number | HTMLInputElement;
 
 function previewLine(e: PointerEvent) {
     const atX = e.offsetX;
     const atY = e.offsetY;
 
-    if (ctx) {
-        ctx.beginPath();
-        ctx.strokeStyle = color;
-        ctx.lineWidth = +stroke;
-        ctx.moveTo(x, y);
-        ctx.lineTo(atX, atY);
-        ctx.stroke();
-    };
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = +stroke;
+    ctx.moveTo(x, y);
+    ctx.lineTo(atX, atY);
+    ctx.stroke();
 }
 
 function int(n: any): boolean {
@@ -78,137 +79,133 @@ function undoFunc() {
 };
 
 function clear() {
-    ctx?.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 };
 
 function drawLines() {
     let i = 0;
 
-    if (ctx) {
-        ctx.beginPath()
-        ctx.strokeStyle = '#000000';
-        ctx.lineWidth = 1;
+    ctx.beginPath()
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = 1;
 
-        while (i < canvasArray.length) {
-            let CA1 = canvasArray[i];
-            let CA2 = canvasArray[i + 1];
+    while (i < canvasArray.length) {
+        let CA1 = canvasArray[i];
+        let CA2 = canvasArray[i + 1];
 
-            if (int(CA1) && int(CA2)) {
-                ctx.moveTo(+CA1, +CA2);
-                ctx.lineTo(+canvasArray[i + 2], +canvasArray[i + 3]);
-                i += 4;
-            }
+        if (int(CA1) && int(CA2)) {
+            ctx.moveTo(+CA1, +CA2);
+            ctx.lineTo(+canvasArray[i + 2], +canvasArray[i + 3]);
+            i += 4;
+        }
 
-            else if (Array.isArray(CA1)) {
-                let freeCA1 = [...CA1];
+        else if (Array.isArray(CA1)) {
+            let freeCA1 = [...CA1];
 
-                if (freeCA1[0] === 'freehandArray') {
-                    freeCA1.shift();
-                    ctx.moveTo(+freeCA1[0], +freeCA1[1]);
-                    freeCA1.splice(0, 2);
+            if (freeCA1[0] === 'freehandArray') {
+                freeCA1.shift();
+                ctx.moveTo(+freeCA1[0], +freeCA1[1]);
+                freeCA1.splice(0, 2);
 
-                    for (let j = 0; j < freeCA1.length; j += 2) {
-                        ctx.lineTo(+freeCA1[j], +freeCA1[j + 1]);
-                    };
-
-                }
-
-                else {
-                    ctx.moveTo(+CA1[0], +CA1[1]);
-                    ctx.quadraticCurveTo(+CA1[2], +CA1[3], +CA1[4], +CA1[5]);
+                for (let j = 0; j < freeCA1.length; j += 2) {
+                    ctx.lineTo(+freeCA1[j], +freeCA1[j + 1]);
                 };
 
-                i++;
             }
 
             else {
-                if (!(int(CA1) || int(CA2)) && !Array.isArray(CA2)) {
+                ctx.moveTo(+CA1[0], +CA1[1]);
+                ctx.quadraticCurveTo(+CA1[2], +CA1[3], +CA1[4], +CA1[5]);
+            };
+
+            i++;
+        }
+
+        else {
+            if (!(int(CA1) || int(CA2)) && !Array.isArray(CA2)) {
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.strokeStyle = CA1.toString();
+                ctx.lineWidth = +CA2;
+                i += 2;
+            } else {
+                if (Math.sign(+CA1)) {
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.lineWidth = +CA1;
+                    i++;
+                } else {
                     ctx.stroke();
                     ctx.beginPath();
                     ctx.strokeStyle = CA1.toString();
-                    ctx.lineWidth = +CA2;
-                    i += 2;
-                } else {
-                    if (Math.sign(+CA1)) {
-                        ctx.stroke();
-                        ctx.beginPath();
-                        ctx.lineWidth = +CA1;
-                        i++;
-                    } else {
-                        ctx.stroke();
-                        ctx.beginPath();
-                        ctx.strokeStyle = CA1.toString();
-                        i++;
-                    };
+                    i++;
                 };
             };
         };
-        ctx.stroke();
     };
+    ctx.stroke();
 };
 
 function generateCode() {
-    const space = document.querySelector('.space');
+    const space = document.querySelector('.space')!;
     const range = document.createRange();
     const selection = window.getSelection();
     let i = 0;
 
-    if (space) {
-        space.innerHTML = '';
-        space.innerHTML += `<div>const canvas = document.querySelector(\'canvas\');</div><div>const ctx = canvas.getContext(\'2d\');</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '#000000';</div><div>ctx.lineWidth = 1;</div>`
+    space.innerHTML = '';
+    space.innerHTML += `<div>const canvas = document.querySelector(\'canvas\');</div><div>const ctx = canvas.getContext(\'2d\');</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '#000000';</div><div>ctx.lineWidth = 1;</div>`
 
-        while (i < canvasArray.length) {
-            let CA1 = canvasArray[i];
-            let CA2 = canvasArray[i + 1];
+    while (i < canvasArray.length) {
+        let CA1 = canvasArray[i];
+        let CA2 = canvasArray[i + 1];
 
-            if (int(CA1) && int(CA2)) {
-                space.innerHTML += `<div>ctx.moveTo(${CA1}, ${CA2});</div>`;
-                space.innerHTML += `<div>ctx.lineTo(${canvasArray[i + 2]}, ${canvasArray[i + 3]});</div>`;
-                i += 4;
-            }
-            else if (Array.isArray(CA1)) {
-                let freeCA1 = [...CA1];
+        if (int(CA1) && int(CA2)) {
+            space.innerHTML += `<div>ctx.moveTo(${CA1}, ${CA2});</div>`;
+            space.innerHTML += `<div>ctx.lineTo(${canvasArray[i + 2]}, ${canvasArray[i + 3]});</div>`;
+            i += 4;
+        }
+        else if (Array.isArray(CA1)) {
+            let freeCA1 = [...CA1];
 
-                if (freeCA1[0] === 'freehandArray') {
-                    freeCA1.shift();
-                    space.innerHTML += `<div>ctx.moveTo(${+freeCA1[0]}, ${+freeCA1[1]});</div>`;
-                    freeCA1.splice(0, 2);
+            if (freeCA1[0] === 'freehandArray') {
+                freeCA1.shift();
+                space.innerHTML += `<div>ctx.moveTo(${+freeCA1[0]}, ${+freeCA1[1]});</div>`;
+                freeCA1.splice(0, 2);
 
-                    for (let j = 0; j < freeCA1.length; j += 2) {
-                        space.innerHTML += `<div>ctx.lineTo(${+freeCA1[j]}, ${+freeCA1[j + 1]});</div>`;
-                    };
-
-                }
-
-                else {
-                    space.innerHTML += `<div>ctx.moveTo(${CA1[0]}, ${CA1[1]});</div>`;
-                    space.innerHTML += `<div>ctx.quadraticCurveTo(${CA1[2]}, ${CA1[3]}, ${CA1[4]}, ${CA1[5]});</div>`;
+                for (let j = 0; j < freeCA1.length; j += 2) {
+                    space.innerHTML += `<div>ctx.lineTo(${+freeCA1[j]}, ${+freeCA1[j + 1]});</div>`;
                 };
 
-                i++;
             }
 
             else {
-                if (!(int(CA1) || int(CA2)) && !Array.isArray(CA2)) {
-                    space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`;
-                    space.innerHTML += `<div>ctx.lineWidth = '${CA2}';</div>`;
-                    i += 2;
+                space.innerHTML += `<div>ctx.moveTo(${CA1[0]}, ${CA1[1]});</div>`;
+                space.innerHTML += `<div>ctx.quadraticCurveTo(${CA1[2]}, ${CA1[3]}, ${CA1[4]}, ${CA1[5]});</div>`;
+            };
+
+            i++;
+        }
+
+        else {
+            if (!(int(CA1) || int(CA2)) && !Array.isArray(CA2)) {
+                space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`;
+                space.innerHTML += `<div>ctx.lineWidth = '${CA2}';</div>`;
+                i += 2;
+            } else {
+                if (Math.sign(+CA1)) {
+                    space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.lineWidth = '${CA1}';</div>`;
+                    i++;
                 } else {
-                    if (Math.sign(+CA1)) {
-                        space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.lineWidth = '${CA1}';</div>`;
-                        i++;
-                    } else {
-                        space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`;
-                        i++;
-                    };
+                    space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`;
+                    i++;
                 };
             };
         };
-        space.innerHTML += '<div>ctx.stroke();</div>';
-        selection?.removeAllRanges();
-        range.selectNodeContents(space);
-        selection?.addRange(range);
     };
+    space.innerHTML += '<div>ctx.stroke();</div>';
+    selection?.removeAllRanges();
+    range.selectNodeContents(space);
+    selection?.addRange(range);
 };
 
 function resize(type: string, ...rest: number[]) {
@@ -228,23 +225,21 @@ function drawGrid() {
     canvasWidth = +(document.querySelector('.width') as HTMLInputElement).value || canvas.width;
     canvasHeight = +(document.querySelector('.height') as HTMLInputElement).value || canvas.height;
 
-    if (ctx) {
-        ctx.beginPath();
-        ctx.strokeStyle = "#AAAAAA";
-        ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.strokeStyle = "#AAAAAA";
+    ctx.lineWidth = 1;
 
-        for (let x = 0; x <= canvasWidth; x += gridSize) {
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, canvasHeight);
-        }
+    for (let x = 0; x <= canvasWidth; x += gridSize) {
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvasHeight);
+    }
 
-        for (let y = 0; y <= canvasHeight; y += gridSize) {
-            ctx.moveTo(0, y);
-            ctx.lineTo(canvasWidth, y);
-        }
+    for (let y = 0; y <= canvasHeight; y += gridSize) {
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvasWidth, y);
+    }
 
-        ctx.stroke();
-    };
+    ctx.stroke();
 };
 
 function calcCurve() {
@@ -321,14 +316,12 @@ function pointerUpHandler(e: PointerEvent) {
     num++;
     canvasArray[num] = b;
 
-    if (ctx) {
-        ctx.beginPath();
-        ctx.strokeStyle = color;
-        ctx.lineWidth = +stroke;
-        ctx.moveTo(x, y);
-        ctx.lineTo(a, b);
-        ctx.stroke();
-    };
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = +stroke;
+    ctx.moveTo(x, y);
+    ctx.lineTo(a, b);
+    ctx.stroke();
 };
 
 function freehandPointerDownHandler(e: PointerEvent) {
@@ -429,7 +422,7 @@ canvas.addEventListener('pointerdown', pointerDownHandler);
 
 canvas.addEventListener('pointerup', pointerUpHandler);
 
-undo?.addEventListener('click', () => {
+undo.addEventListener('click', () => {
     clear();
     undoFunc();
     drawGrid();
@@ -437,11 +430,11 @@ undo?.addEventListener('click', () => {
     setArray();
 });
 
-generate?.addEventListener('click', () => {
+generate.addEventListener('click', () => {
     generateCode();
 });
 
-reset?.addEventListener('click', () => {
+reset.addEventListener('click', () => {
     clear();
     drawGrid();
     canvasArray = [];
@@ -453,7 +446,7 @@ reset?.addEventListener('click', () => {
     setArray();
 });
 
-set?.addEventListener('click', () => {
+set.addEventListener('click', () => {
     canvasWidth = +((document.querySelector('.width') as HTMLInputElement).value);
     canvasHeight = +((document.querySelector('.height') as HTMLInputElement).value);
     resize('custom', canvasWidth, canvasHeight);
@@ -461,7 +454,7 @@ set?.addEventListener('click', () => {
     drawLines();
 });
 
-save?.addEventListener('click', () => {
+save.addEventListener('click', () => {
     localStorage.setItem('canvasArray', JSON.stringify(canvasArray));
     num += canvasArray.length;
     popup_saved.classList.add('show');
@@ -476,7 +469,7 @@ save?.addEventListener('click', () => {
     }, 2300);
 });
 
-userDesign?.addEventListener('click', () => {
+userDesign.addEventListener('click', () => {
     clear();
     canvasArray = JSON.parse((document.querySelector('.design') as HTMLInputElement).value);
     drawGrid();
@@ -507,10 +500,10 @@ curveInputContainer.addEventListener('input', (e) => {
     };
 });
 
-copyBtn?.addEventListener('click', () => {
+copyBtn.addEventListener('click', () => {
     navigator.clipboard.writeText((document.querySelector('.design') as HTMLInputElement).value);
 });
 
-isFreehand?.addEventListener('change', () => {
+isFreehand.addEventListener('change', () => {
     isFreehandChecker();
 });
