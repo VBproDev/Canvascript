@@ -26,14 +26,17 @@ const previewLineHandler = (e: PointerEvent) => {
 
 let stroke = '1';
 let color = '#000000';
-let canvasWidth: number | HTMLInputElement;
-let canvasHeight: number | HTMLInputElement;
+let canvasWidth: canvasOutput;
+let canvasHeight: canvasOutput;
 let x: number;
 let y: number;
 let num = -1;
-let canvasArray: (number | string | number[] | (string | number)[])[] = [];
+let canvasArray: (number | string | number[] | array)[] = [];
 let warnedUser = false;
-let freeArray: (number | string)[] = ['freehandArray'];
+let freeArray: array = ['freehandArray'];
+
+type array = (number| string)[];
+type canvasOutput = number | HTMLInputElement;
 
 function previewLine(e: PointerEvent) {
     const atX = e.offsetX;
