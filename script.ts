@@ -210,7 +210,7 @@ function generateCode() {
     selection?.removeAllRanges();
     range.selectNodeContents(space);
     selection?.addRange(range);
-}
+};
 
 function resize(type: string, ...rest: number[]) {
     if (type === 'def') {

@@ -188,6 +188,7 @@ function generateCode() {
     range.selectNodeContents(space);
     selection === null || selection === void 0 ? void 0 : selection.addRange(range);
 }
+;
 function resize(type, ...rest) {
     if (type === 'def') {
         const height = window.innerHeight;
