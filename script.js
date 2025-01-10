@@ -139,65 +139,58 @@ function drawLines() {
 ;
 function generateCode() {
     const space = document.querySelector('.space');
-    const range = document.createRange();
     const selection = window.getSelection();
+    const range = document.createRange();
     let i = 0;
-    space.innerHTML = '';
-    space.innerHTML += `<div>const canvas = document.querySelector(\'canvas\');</div><div>const ctx = canvas.getContext(\'2d\');</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '#000000';</div><div>ctx.lineWidth = 1;</div>`;
+    space.innerHTML = ''; // Clear space first
+    const fragments = [
+        `<div>const canvas = document.querySelector(\'canvas\');</div>`,
+        `<div>const ctx = canvas.getContext(\'2d\');</div>`,
+        `<div>ctx.beginPath();</div>`,
+        `<div>ctx.strokeStyle = '#000000';</div>`,
+        `<div>ctx.lineWidth = 1;</div>`,
+    ];
     while (i < canvasArray.length) {
         let CA1 = canvasArray[i];
         let CA2 = canvasArray[i + 1];
         if (int(CA1) && int(CA2)) {
-            space.innerHTML += `<div>ctx.moveTo(${CA1}, ${CA2});</div>`;
-            space.innerHTML += `<div>ctx.lineTo(${canvasArray[i + 2]}, ${canvasArray[i + 3]});</div>`;
+            fragments.push(`<div>ctx.moveTo(${CA1}, ${CA2});</div>`, `<div>ctx.lineTo(${canvasArray[i + 2]}, ${canvasArray[i + 3]});</div>`);
             i += 4;
         }
         else if (Array.isArray(CA1)) {
             let freeCA1 = [...CA1];
             if (freeCA1[0] === 'freehandArray') {
                 freeCA1.shift();
-                space.innerHTML += `<div>ctx.moveTo(${+freeCA1[0]}, ${+freeCA1[1]});</div>`;
+                fragments.push(`<div>ctx.moveTo(${+freeCA1[0]}, ${+freeCA1[1]});</div>`);
                 freeCA1.splice(0, 2);
                 for (let j = 0; j < freeCA1.length; j += 2) {
-                    space.innerHTML += `<div>ctx.lineTo(${+freeCA1[j]}, ${+freeCA1[j + 1]});</div>`;
+                    fragments.push(`<div>ctx.lineTo(${+freeCA1[j]}, ${+freeCA1[j + 1]});</div>`);
                 }
-                ;
             }
             else {
-                space.innerHTML += `<div>ctx.moveTo(${CA1[0]}, ${CA1[1]});</div>`;
-                space.innerHTML += `<div>ctx.quadraticCurveTo(${CA1[2]}, ${CA1[3]}, ${CA1[4]}, ${CA1[5]});</div>`;
+                fragments.push(`<div>ctx.moveTo(${CA1[0]}, ${CA1[1]});</div>`, `<div>ctx.quadraticCurveTo(${CA1[2]}, ${CA1[3]}, ${CA1[4]}, ${CA1[5]});</div>`);
             }
-            ;
             i++;
         }
         else {
             if (!(int(CA1) || int(CA2)) && !Array.isArray(CA2)) {
-                space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`;
-                space.innerHTML += `<div>ctx.lineWidth = '${CA2}';</div>`;
+                fragments.push(`<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`, `<div>ctx.lineWidth = '${CA2}';</div>`);
                 i += 2;
             }
             else {
-                if (Math.sign(+CA1)) {
-                    space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.lineWidth = '${CA1}';</div>`;
-                    i++;
-                }
-                else {
-                    space.innerHTML += `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`;
-                    i++;
-                }
-                ;
+                fragments.push(Math.sign(+CA1)
+                    ? `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.lineWidth = '${CA1}';</div>`
+                    : `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`);
+                i++;
             }
-            ;
         }
-        ;
     }
-    ;
-    space.innerHTML += '<div>ctx.stroke();</div>';
+    fragments.push('<div>ctx.stroke();</div>');
+    space.innerHTML = fragments.join(''); // Update DOM once
     selection === null || selection === void 0 ? void 0 : selection.removeAllRanges();
     range.selectNodeContents(space);
     selection === null || selection === void 0 ? void 0 : selection.addRange(range);
 }
-;
 function resize(type, ...rest) {
     if (type === 'def') {
         const height = window.innerHeight;
