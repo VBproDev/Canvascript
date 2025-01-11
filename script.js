@@ -43,6 +43,9 @@ function previewLine(e) {
     ctx.lineTo(atX, atY);
     ctx.stroke();
 }
+function int(n) {
+    return typeof n === 'number';
+}
 function setArray() {
     if (canvasArray.length === 0) {
         design.value = '[ ]';
@@ -54,7 +57,7 @@ function setArray() {
 }
 function undoFunc() {
     const CA1 = canvasArray[canvasArray.length - 1];
-    if (Number(CA1)) {
+    if (int(CA1)) {
         for (let i = 0; i < 4; i++) {
             canvasArray.pop();
         }
@@ -80,7 +83,7 @@ function drawLines() {
     while (i < canvasArray.length) {
         let CA1 = canvasArray[i];
         let CA2 = canvasArray[i + 1];
-        if (Number(CA1) && Number(CA2)) {
+        if (int(CA1) && int(CA2)) {
             ctx.moveTo(+CA1, +CA2);
             ctx.lineTo(+canvasArray[i + 2], +canvasArray[i + 3]);
             i += 4;
@@ -104,7 +107,7 @@ function drawLines() {
             i++;
         }
         else {
-            if (!(Number(CA1) || Number(CA2)) && !Array.isArray(CA2)) {
+            if (!(int(CA1) || int(CA2)) && !Array.isArray(CA2)) {
                 ctx.stroke();
                 ctx.beginPath();
                 ctx.strokeStyle = CA1.toString();
@@ -150,7 +153,7 @@ function generateCode() {
     while (i < canvasArray.length) {
         let CA1 = canvasArray[i];
         let CA2 = canvasArray[i + 1];
-        if (Number(CA1) && Number(CA2)) {
+        if (int(CA1) && int(CA2)) {
             fragments.push(`<div>ctx.moveTo(${CA1}, ${CA2});</div>`, `<div>ctx.lineTo(${canvasArray[i + 2]}, ${canvasArray[i + 3]});</div>`);
             i += 4;
         }
@@ -170,7 +173,7 @@ function generateCode() {
             i++;
         }
         else {
-            if (!(Number(CA1) || Number(CA2)) && !Array.isArray(CA2)) {
+            if (!(int(CA1) || int(CA2)) && !Array.isArray(CA2)) {
                 fragments.push(`<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`, `<div>ctx.lineWidth = '${CA2}';</div>`);
                 i += 2;
             }
@@ -188,7 +191,6 @@ function generateCode() {
     range.selectNodeContents(space);
     selection === null || selection === void 0 ? void 0 : selection.addRange(range);
 }
-;
 function resize(type, ...rest) {
     if (type === 'def') {
         const height = window.innerHeight;
@@ -225,7 +227,7 @@ function calcCurve() {
     const CA1 = canvasArray[canvasArray.length - 1];
     let newArray = [];
     if (canvasArray.length !== 0) {
-        if (Number(CA1)) {
+        if (int(CA1)) {
             for (let i = 0; i < 4; i++) {
                 newArray.push(canvasArray.pop());
             }

@@ -50,6 +50,10 @@ function previewLine(e: PointerEvent) {
     ctx.stroke();
 }
 
+function int(n: any): boolean {
+    return typeof n === 'number';
+}
+
 function setArray() {
     if (canvasArray.length === 0) {
         design.value = '[ ]'
@@ -61,7 +65,7 @@ function setArray() {
 function undoFunc() {
     const CA1 = canvasArray[canvasArray.length - 1];
 
-    if (Number(CA1)) {
+    if (int(CA1)) {
         for (let i = 0; i < 4; i++) {
             canvasArray.pop();
         };
@@ -89,7 +93,7 @@ function drawLines() {
         let CA1 = canvasArray[i];
         let CA2 = canvasArray[i + 1];
 
-        if (Number(CA1) && Number(CA2)) {
+        if (int(CA1) && int(CA2)) {
             ctx.moveTo(+CA1, +CA2);
             ctx.lineTo(+canvasArray[i + 2], +canvasArray[i + 3]);
             i += 4;
@@ -118,7 +122,7 @@ function drawLines() {
         }
 
         else {
-            if (!(Number(CA1) || Number(CA2)) && !Array.isArray(CA2)) {
+            if (!(int(CA1) || int(CA2)) && !Array.isArray(CA2)) {
                 ctx.stroke();
                 ctx.beginPath();
                 ctx.strokeStyle = CA1.toString();
@@ -162,7 +166,7 @@ function generateCode() {
         let CA1 = canvasArray[i];
         let CA2 = canvasArray[i + 1];
 
-        if (Number(CA1) && Number(CA2)) {
+        if (int(CA1) && int(CA2)) {
             fragments.push(
                 `<div>ctx.moveTo(${CA1}, ${CA2});</div>`,
                 `<div>ctx.lineTo(${canvasArray[i + 2]}, ${canvasArray[i + 3]});</div>`
@@ -187,7 +191,7 @@ function generateCode() {
             }
             i++;
         } else {
-            if (!(Number(CA1) || Number(CA2)) && !Array.isArray(CA2)) {
+            if (!(int(CA1) || int(CA2)) && !Array.isArray(CA2)) {
                 fragments.push(
                     `<div>ctx.stroke();</div><div>ctx.beginPath();</div><div>ctx.strokeStyle = '${CA1}';</div>`,
                     `<div>ctx.lineWidth = '${CA2}';</div>`
@@ -210,7 +214,7 @@ function generateCode() {
     selection?.removeAllRanges();
     range.selectNodeContents(space);
     selection?.addRange(range);
-};
+}
 
 function resize(type: string, ...rest: number[]) {
     if (type === 'def') {
@@ -253,7 +257,7 @@ function calcCurve() {
     let newArray: number[] = [];
 
     if (canvasArray.length !== 0) {
-        if (Number(CA1)) {
+        if (int(CA1)) {
             for (let i = 0; i < 4; i++) {
                 newArray.push(canvasArray.pop() as number);
             };
