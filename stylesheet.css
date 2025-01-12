@@ -268,9 +268,8 @@ button.success:focus {
   position: relative;
   width: 100%;
   background: #3586ff;
-  min-height: 100px;
-  padding: 20px 50px;
   display: flex;
+  padding: 1rem;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -281,14 +280,14 @@ button.success:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px 0;
+  margin: 1rem 0;
   flex-wrap: wrap;
   list-style: none;
 
   a {
     font-size: 1.2rem;
     color: #fff;
-    margin: 0 10px;
+    margin: 0.5rem 2rem 0.5rem 0.5rem;
     display: inline-block;
     transition: 0.5s;
     text-decoration: none;
@@ -299,11 +298,4 @@ button.success:focus {
       opacity: 1;
     }
   }
-}
-
-.footer p {
-  color: #fff;
-  margin: 15px 0 10px 0;
-  font-size: 1rem;
-  font-weight: 300;
 }
