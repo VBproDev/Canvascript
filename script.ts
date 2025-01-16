@@ -479,7 +479,7 @@ save.addEventListener('click', () => {
     cstpNotification.classList.remove('show');
   });
 
-  if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) cstpNotification.classList.add('show');
+  if (/^((?!chrome|crios|fxios|edgios|opr|android).)*safari\/[0-9.]+$/.test(navigator.userAgent)) cstpNotification.classList.add('show');
 
   popup_saved.classList.add('show');
   saveTimer = setTimeout(() => { popup_saved.classList.remove('show'); }, 2300)
