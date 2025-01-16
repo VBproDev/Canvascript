@@ -404,16 +404,22 @@ set.addEventListener('click', () => {
     drawLines();
 });
 save.addEventListener('click', () => {
+    const cstpNotification = document.querySelector('.cstp-notification');
+    const cstpClose = document.querySelector('.dismiss-button');
+    let saveTimer;
     localStorage.setItem('canvasArray', JSON.stringify(canvasArray));
     num += canvasArray.length;
-    popup_saved.classList.add('show');
-    btnClose === null || btnClose === void 0 ? void 0 : btnClose.addEventListener('click', () => {
+    btnClose.addEventListener('click', () => {
         clearTimeout(saveTimer);
         popup_saved.classList.remove('show');
     });
-    const saveTimer = setTimeout(() => {
-        popup_saved.classList.remove('show');
-    }, 2300);
+    cstpClose.addEventListener('click', () => {
+        cstpNotification.classList.remove('show');
+    });
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent))
+        cstpNotification.classList.add('show');
+    popup_saved.classList.add('show');
+    saveTimer = setTimeout(() => { popup_saved.classList.remove('show'); }, 2300);
 });
 userDesign.addEventListener('click', () => {
     clear();
